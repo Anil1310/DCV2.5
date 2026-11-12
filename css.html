@@ -382,6 +382,17 @@
     html.dark .text-slate-500 {
         color: #94a3b8 !important;
     }
+    html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled]),
+    html:not(.dark) select,
+    html:not(.dark) textarea {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #cbd5e1 !important;
+    }
+    html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled])::placeholder,
+    html:not(.dark) textarea::placeholder {
+        color: #94a3b8 !important;
+    }
     html.dark input, 
     html.dark select, 
     html.dark textarea {
