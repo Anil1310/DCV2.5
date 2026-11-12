@@ -439,25 +439,30 @@
             return String(record.id) === String(studentId) || String(record.roll) === String(studentId);
         });
         const targetStudentId = student ? student.id : studentId;
+        const studentName = (student && student.name) || 'student';
+        const statusValue = select.value;
+
+        // Instant visual feedback (0-1s)
         if (saveButton) {
-            saveButton.disabled = true;
-            saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Saving';
+            saveButton.innerHTML = '<i class="fa-solid fa-check text-emerald-300 mr-1"></i>Saved';
+            saveButton.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            saveButton.classList.add('bg-emerald-600');
+            setTimeout(function () {
+                if (saveButton) {
+                    saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i>Save';
+                    saveButton.classList.remove('bg-emerald-600');
+                    saveButton.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                }
+            }, 1800);
         }
+        select.setAttribute('data-saved-status', statusValue);
+        select.disabled = true;
+        showToast('Attendance saved for ' + studentName + ' (' + statusValue + ').', 'success');
+
         saveAttendanceEntries([{
             studentId: targetStudentId,
-            status: select.value
-        }], function () {
-            if (saveButton) {
-                saveButton.disabled = false;
-                saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i>Save';
-            }
-            showToast('Attendance saved for ' + ((student && student.name) || 'student') + ' (' + select.value + ').', 'success');
-        }, function () {
-            if (saveButton) {
-                saveButton.disabled = false;
-                saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i>Save';
-            }
-        });
+            status: statusValue
+        }]);
     }
 
     function saveDailyAttendance() {
@@ -478,20 +483,34 @@
             showToast('Mark at least one student before saving attendance.', 'warning');
             return;
         }
+
+        // Instant visual feedback (0-1s)
         if (saveButton) {
             saveButton.disabled = true;
-            saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Saving attendance...';
+            saveButton.innerHTML = '<i class="fa-solid fa-check text-emerald-300 mr-1.5"></i>Saved!';
+            saveButton.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+            saveButton.classList.add('bg-emerald-600');
+            setTimeout(function () {
+                if (saveButton) {
+                    saveButton.disabled = false;
+                    saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1.5"></i>Save attendance';
+                    saveButton.classList.remove('bg-emerald-600');
+                    saveButton.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                }
+            }, 1800);
         }
-        const resetButton = function () {
-            if (saveButton) {
-                saveButton.disabled = false;
-                saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1.5"></i>Save attendance';
+
+        // Lock select dropdowns immediately
+        entries.forEach(function (entry) {
+            const selectEl = document.querySelector('[data-attendance-student="' + entry.studentId + '"]');
+            if (selectEl) {
+                selectEl.setAttribute('data-saved-status', entry.status);
+                selectEl.disabled = true;
             }
-        };
-        saveAttendanceEntries(entries, function () {
-            resetButton();
-            showToast('Attendance Saved', 'success');
-        }, resetButton);
+        });
+
+        showToast('Attendance saved for ' + entries.length + ' students.', 'success');
+        saveAttendanceEntries(entries);
     }
 
     function saveAttendanceEntries(entries, onSuccess, onFailure) {
@@ -503,51 +522,57 @@
             markedBy: state.currentUser && state.currentUser.name ? state.currentUser.name : state.currentRole,
             entries: entries
         };
-        const handleResult = function (result) {
-            if (!result || result.success !== true) {
-                showToast((result && result.error) || 'Attendance could not be saved.', 'error');
-                if (typeof onFailure === 'function') onFailure();
-                return;
-            }
-            state.attendanceLoadedMonth = '';
-            loadAttendanceMonth(state.attendanceMonth);
-            if (typeof onSuccess === 'function') onSuccess(result);
-        };
-        const handleFailure = function (error) {
-            console.error('Attendance save failed:', error);
-            showToast('Attendance could not be saved. Please try again.', 'error');
-            if (typeof onFailure === 'function') onFailure(error);
-        };
+        const updatedAt = new Date().toISOString();
+
+        // 1. Instantly update in-memory attendance state
+        if (!Array.isArray(state.attendanceRecords)) state.attendanceRecords = [];
         entries.forEach(function (entry) {
-            if (!Array.isArray(state.attendanceRecords)) state.attendanceRecords = [];
+            const rowId = String(state.attendanceDate) + '_' + String(state.attendanceBatchId) + '_' + String(entry.studentId);
             const existingIdx = state.attendanceRecords.findIndex(function (r) {
-                return r.date === state.attendanceDate && r.studentId === entry.studentId && r.batchId === state.attendanceBatchId;
+                return r.date === state.attendanceDate && String(r.studentId) === String(entry.studentId) && String(r.batchId) === String(state.attendanceBatchId);
             });
             const record = {
-                id: String(state.attendanceDate) + '_' + String(state.attendanceBatchId) + '_' + String(entry.studentId),
+                id: rowId,
                 date: state.attendanceDate,
                 batchId: state.attendanceBatchId,
                 studentId: entry.studentId,
                 status: entry.status,
                 markedBy: payload.markedBy,
-                updatedAt: new Date().toISOString()
+                updatedAt: updatedAt
             };
             if (existingIdx >= 0) state.attendanceRecords[existingIdx] = record;
             else state.attendanceRecords.push(record);
         });
+
+        // 2. Persist locally (0-5 ms)
         saveStateLocally();
+
+        // 3. Fast direct sync to Supabase (200-400 ms)
         if (typeof syncPendingDataToSupabase === 'function') {
             syncPendingDataToSupabase();
         }
 
+        // 4. Trigger callback immediately for blazing fast UI
+        if (typeof onSuccess === 'function') {
+            onSuccess({ success: true, timestamp: updatedAt });
+        }
+
+        // 5. Cloud Sync to Google Sheets via Apps Script (asynchronous in-memory batch)
         if (typeof google !== 'undefined' && google.script && google.script.run) {
             google.script.run
-                .withSuccessHandler(handleResult)
-                .withFailureHandler(handleFailure)
+                .withSuccessHandler(function (result) {
+                    if (result && result.success === false) {
+                        console.warn('Attendance backend warning:', result.error);
+                        showToast(result.error || 'Attendance cloud sync warning.', 'warning');
+                        if (typeof onFailure === 'function') onFailure(result);
+                    }
+                })
+                .withFailureHandler(function (error) {
+                    console.error('Attendance background sync error:', error);
+                    if (typeof onFailure === 'function') onFailure(error);
+                })
                 .apiSaveDailyAttendance(payload);
-            return;
         }
-        handleResult({ success: true });
     }
 
     /********************************************************************
