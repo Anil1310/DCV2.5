@@ -382,26 +382,42 @@
     html.dark .text-slate-500 {
         color: #94a3b8 !important;
     }
+    /* All inputs, selects, and textareas across all pages and modals */
     html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled]),
     html:not(.dark) select,
-    html:not(.dark) textarea {
+    html:not(.dark) textarea,
+    html:not(.dark) #modal-content input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled]),
+    html:not(.dark) #modal-content select,
+    html:not(.dark) #modal-content textarea {
         background-color: #ffffff !important;
         color: #0f172a !important;
         border-color: #cbd5e1 !important;
     }
     html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled])::placeholder,
-    html:not(.dark) textarea::placeholder {
+    html:not(.dark) textarea::placeholder,
+    html:not(.dark) #modal-content input::placeholder,
+    html:not(.dark) #modal-content textarea::placeholder {
         color: #94a3b8 !important;
+    }
+    html:not(.dark) #modal-content {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #e2e8f0 !important;
     }
     html.dark input, 
     html.dark select, 
-    html.dark textarea {
+    html.dark textarea,
+    html.dark #modal-content input,
+    html.dark #modal-content select,
+    html.dark #modal-content textarea {
         background-color: #0f172a !important;
         border-color: #334155 !important;
         color: #f8fafc !important;
     }
     html.dark input::placeholder, 
-    html.dark textarea::placeholder {
+    html.dark textarea::placeholder,
+    html.dark #modal-content input::placeholder,
+    html.dark #modal-content textarea::placeholder {
         color: #64748b !important;
     }
     html.dark #modal-content {
