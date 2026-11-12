@@ -1,0 +1,19 @@
+# Dependencies & Build artifacts
+.DS_Store
+*.apk
+scratch/
+.system_generated/
+__pycache__/
+*.pyc
+
+# Android build cache
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+.gradle/
+build/
+
+# IDE configs
+.vscode/
+.idea/

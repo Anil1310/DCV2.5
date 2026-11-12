@@ -1,0 +1,2779 @@
+<textarea id="guide-content-admin" style="display:none;" hidden>
+# Divine Classes — Administrator Operations Manual
+
+**For:** Institute Administrators, Directors & Academic Coordinators  
+**Role:** Admin (Full Governance & Management)  
+**Version:** 2.5 Cloud Edition  
+**Last updated:** November 2026
+
+---
+
+## Table of Contents
+
+1. [Admin Role & Governance Overview](#1-admin-role--governance-overview)
+2. [Admin Dashboard & Institute KPIs](#2-admin-dashboard--institute-kpis)
+3. [Batch Creation & Scheduling](#3-batch-creation--scheduling)
+4. [Student Admissions, Rosters & ID Cards](#4-student-admissions-rosters--id-cards)
+5. [Institute Attendance Management](#5-institute-attendance-management)
+6. [Confidential Fee Ledger & Payments](#6-confidential-fee-ledger--payments)
+7. [WhatsApp & SMS Fee Reminders](#7-whatsapp--sms-fee-reminders)
+8. [Access Control & Password Management](#8-access-control--password-management)
+9. [Assignments, DPPs & Study Materials](#9-assignments-dpps--study-materials)
+10. [Offline Marks Tracker & Exam Results](#10-offline-marks-tracker--exam-results)
+11. [Faculty & Staff Management](#11-faculty--staff-management)
+12. [Results & Achievements Gallery](#12-results--achievements-gallery)
+13. [External Study Hub & Curated Resources](#13-external-study-hub--curated-resources)
+14. [Parent & Student Feedback Review](#14-parent--student-feedback-review)
+15. [Institute AI Assistant Guidelines](#15-institute-ai-assistant-guidelines)
+16. [Cloud Sync, Database Backups & Data Safety](#16-cloud-sync-database-backups--data-safety)
+17. [Admin Troubleshooting & Operations Manual](#17-admin-troubleshooting--operations-manual)
+18. [Administrator Quick Reference Card](#18-administrator-quick-reference-card)
+
+---
+
+## 1. Admin Role & Governance Overview
+
+Welcome to the **Divine Classes Administrator Portal**. As an Administrator, you have complete authority over day-to-day coaching institute operations, financial records, student admissions, faculty oversight, and cloud security.
+
+### Core Administrative Responsibilities
+- **Admissions & Batches:** Create batches, schedule subjects, enroll students, and issue official ID cards.
+- **Attendance Oversight:** Monitor daily student attendance marked by faculty, review monthly registers, and rectify discrepancies.
+- **Financial Governance:** Maintain the **Admin Confidential Fee Ledger**, collect payments, record partial installments, and dispatch automated WhatsApp/SMS fee reminders.
+- **Access Control & Security:** Authorize user accounts, reset student and teacher passwords, block delinquent accounts, and secure the **Admin Master Password**.
+- **Academic Content & Marks:** Oversee DPP uploads, manage offline test series, and generate student report cards.
+- **Cloud Database:** Maintain real-time cloud sync with Supabase and Google Sheets.
+
+> The Fee Ledger, Access Control, Master Password, and Institute Settings are strictly hidden from Teachers and Students.
+
+---
+
+## 2. Admin Dashboard & Institute KPIs
+
+The Dashboard acts as your central command center with high-level KPI cards and 1-click operational shortcuts.
+
+### KPI Metric Cards
+- **Active Batches:** Total active coaching batches and enrolled student count.
+- **Study Uploads:** Total assignments, DPP worksheets, and test papers hosted on Google Drive.
+- **Offline Class Tests:** Total evaluated exams conducted this academic cycle.
+- **Pending Fees:** Total outstanding dues across all active students with instant collection tracking.
+
+### Quick Actions
+- **Create Batch:** Opens the batch setup wizard.
+- **Confidential Fee Ledger:** Direct jump to payments and ledger tables.
+- **Access Control:** Manage student and teacher logins and passwords.
+- **Marks Tracker:** Review recent test performance.
+
+---
+
+## 3. Batch Creation & Scheduling
+
+Batches structure your coaching curriculum by class, target exam, and schedule.
+
+### 3.1 Create a New Batch
+1. Open **Batches & Students** from the sidebar or bottom bar.
+2. Click **Create New Batch**.
+3. Fill in the batch parameters:
+   - **Batch Name:** e.g. `Class 11 — JEE Advanced Physics & Maths`
+   - **Room / Hall:** e.g. `Hall A (Main Campus)`
+   - **Schedule & Timings:** e.g. `Mon, Wed, Fri • 4:00 PM – 7:00 PM`
+   - **Subjects:** e.g. `Physics, Mathematics`
+   - **Faculty Mentor:** Select assigned teacher from the dropdown.
+4. Click **Create Batch**. The batch is immediately created and synced to the cloud.
+
+### 3.2 Managing Batch Rosters
+- Open any batch card to see all currently enrolled students, their roll numbers, and contact details.
+- Use **View Batch Materials →** to inspect uploaded DPPs for that specific batch.
+
+---
+
+## 4. Student Admissions, Rosters & ID Cards
+
+Manage student registrations from inquiry to graduation.
+
+### 4.1 Enrolling a Brand-New Student
+1. Open **Batches & Students**.
+2. Click **Add Student** on the batch card, then select **Enroll Brand New Student**.
+3. Fill in the student record:
+   - **Full Name:** Student's legal name.
+   - **Roll Number:** Unique identifier (e.g. `DC-101`).
+   - **Parent / Guardian Name:** For communications.
+   - **Phone / WhatsApp:** Parent contact number for attendance alerts and fee reminders.
+   - **Target Batch:** Assigned class/batch.
+   - **Monthly Fee / Total Course Fee:** Fee obligation.
+   - **Fee Due Date:** Monthly billing cycle date.
+   - **Photo:** (Optional) Upload student avatar or passport photo.
+4. Click **Save Student**. The student is automatically enrolled and given login credentials (`password123`).
+
+### 4.2 Generating Official Student ID Cards
+1. Locate the student in **Batches & Students** or the Fee Ledger.
+2. Click **Student ID Card**.
+3. A print-ready digital identity card is generated with institute branding, roll number, batch, parent phone, and photo.
+4. Tap **Print ID Card** or save as PDF to hand over to the student.
+
+---
+
+## 5. Institute Attendance Management
+
+Admin has full view and editing permissions over institute-wide attendance.
+
+### 5.1 Marking Daily Batch Attendance
+1. Open **Attendance**.
+2. Select the **Month**, **Date**, and **Batch**.
+3. For each student, mark:
+   - **Present** (Green)
+   - **Absent** (Red)
+   - **Late** (Amber)
+4. Click **Save attendance** to commit records to the database.
+
+### 5.2 Reviewing Monthly Registers
+- Scroll down to the **Monthly Register** table below the marking grid.
+- View the entire month's attendance matrix for the batch.
+- Click **Edit** next to any student to unlock and correct past attendance entries.
+
+---
+
+## 6. Confidential Fee Ledger & Payments
+
+The Fee Ledger is strictly confidential and visible only to Administrators.
+
+### 6.1 Financial Summary Cards
+- **Monthly Expected Fees:** Total monthly revenue expected from enrolled students.
+- **Total Fees Collected:** Cumulative revenue received to date.
+- **Fee Due Students:** Number of students with outstanding dues.
+- **Collection Health:** Percentage of students whose payments are up to date.
+
+### 6.2 Recording Fee Payments
+1. Open **Student Fees & Reminders**.
+2. Locate the student using the search bar (filter by name, roll number, or mobile).
+3. Click the **Record Payment** action.
+4. Enter the amount received, payment mode (Cash, UPI, Cheque, Bank Transfer), and optional transaction note.
+5. Click **Confirm Payment**. The student's balance updates in real time, and their dashboard reflects the new payment status.
+
+### 6.3 Exporting Fees to CSV
+- Click **Export to CSV** at the top of the Fee Ledger.
+- Downloads a clean spreadsheet containing student names, roll numbers, fees, paid amounts, due balances, and parent phones for offline accounting audits.
+
+---
+
+## 7. WhatsApp & SMS Fee Reminders
+
+Quickly notify parents regarding overdue fees with zero manual typing.
+
+### 7.1 Single Student Reminder
+- Click the **bell / reminder icon** next to any student with pending dues.
+- Instantly sends an in-app alert to the student's dashboard and prepares a WhatsApp/SMS alert for the parent.
+
+### 7.2 Send Bulk Reminders (N)
+- When multiple students have pending balances, a prominent orange button appears: **Send Bulk Reminders (N)**.
+- Tap this button once to dispatch reminder alerts to all students with overdue fees simultaneously.
+
+---
+
+## 8. Access Control & Password Management
+
+Safeguard institute integrity with centralized credential management.
+
+### 8.1 Students Account Control
+- **Search & Filter:** Find students by roll number, name, or batch.
+- **Authorize All:** Instantly activates all newly registered students in one tap.
+- **Reset to Default:** Sets student password back to `password123` if they forgot it.
+- **Block / Unblock:** Temporarily lock accounts of suspended or fee-defaulting students. Blocked users cannot sign in and are shown an administrative contact notice.
+
+### 8.2 Teachers Account Control
+- View active faculty logins.
+- Authorize new teachers or reset faculty passwords to `teacher123`.
+
+### 8.3 Admin Master Password
+- Go to **Access Control → Admin Master Password**.
+- The Master Password protects the Admin portal, Fee Ledger, and Access Control console.
+- Enter the current password, type the new password, and click **Update Admin Password**.
+
+---
+
+## 9. Assignments, DPPs & Study Materials
+
+Centralize digital learning materials for your students.
+
+### 9.1 Uploading Material
+1. Open **Assignments & DPPs**.
+2. Click **Upload Assignment / DPP / Test Paper**.
+3. Enter title, description, and category (**Assignment PDF**, **Worksheet**, or **Test Paper**).
+4. Select the target batch (or select **General** for all institute students).
+5. Choose the file from your computer or phone.
+6. The file is uploaded to Google Drive, and students immediately receive an in-app notification!
+
+---
+
+## 10. Offline Marks Tracker & Exam Results
+
+Track classroom test performance and generate PTM report cards.
+
+### 10.1 Conducting an Offline Test
+1. Open **Offline Marks Tracker**.
+2. Click **Create Test Record**.
+3. Specify batch, test title (e.g. `Physics Mechanics Midterm`), subject, date, and maximum marks.
+4. Save the test record.
+
+### 10.2 Grading & Publishing Scores
+1. Open the test and enter each student's score.
+2. Add teacher/admin remarks.
+3. Click **Save All** to publish scores to student dashboards.
+4. Tap **Print PTM Report Card** to produce official printed transcripts with rank, percentage, and teacher feedback.
+
+---
+
+## 11. Faculty & Staff Management
+
+Maintain your faculty directory and teaching assignments.
+
+### 11.1 Registering Teachers
+1. Open **Faculty Management** and click **Add Faculty Profile**.
+2. Enter faculty name, subject specialization, qualifications, experience, phone, and email.
+3. Save profile. Teachers can then log in using their email or phone.
+
+---
+
+## 12. Results & Achievements Gallery
+
+Promote your coaching success stories.
+
+### 12.1 Publishing Results
+1. Open **Results & Gallery** and click **Share Result Banner / Photo**.
+2. Enter achievement title (e.g. `AIR 142 in JEE Advanced 2026`), student name, badge, and upload banner image.
+3. Banners are immediately featured in the institute gallery for all students and teachers to view.
+
+---
+
+## 13. External Study Hub & Curated Resources
+
+Curate high-yield educational links for self-study.
+- Add links to NCERT solutions, reference formula sheets, and video playlists.
+- Tag by subject: Physics, Chemistry, Mathematics, Biology.
+
+---
+
+## 14. Parent & Student Feedback Review
+
+Review feedback submitted by parents and students.
+- Monitor star ratings across Teaching Quality, DPPs, Test Series, and General Administration.
+- Address concerns proactively to ensure high parent satisfaction.
+
+---
+
+## 15. Institute AI Assistant Guidelines
+
+Divine Classes includes an AI Study Assistant powered by Google Gemini.
+- Assists students with 24/7 academic doubt solving in Science and Mathematics.
+- Ensure students connect their free Google AI Studio key inside the Chatbot module.
+
+---
+
+## 16. Cloud Sync, Database Backups & Data Safety
+
+The portal uses a resilient dual-layer architecture:
+- **Instant Local Storage:** Changes save immediately to device cache.
+- **Cloud Database:** Automatic background synchronization with Supabase and Google Sheets.
+- **Manual Sync:** Click the Cloud icon in the top header at any time to force an instant two-way sync.
+- **Safety Tip:** Export the Fee Ledger to CSV at the end of each billing cycle for extra offline backup.
+
+---
+
+## 17. Admin Troubleshooting & Operations Manual
+
+### Account Cannot Sign In
+1. Check that the Login ID is correct (e.g. `admin`, `anil`, or `admin@divineclasses.in`).
+2. Verify account is marked **Active** in Access Control (not **Blocked**).
+3. If password was lost, use the Admin Master Password or reset it in Access Control.
+
+### Cloud Sync Warning
+- If the header displays "Saved locally", check your internet connection and tap the cloud button once reconnected.
+
+---
+
+## 18. Administrator Quick Reference Card
+
+| Task | Navigation Path | Role Required |
+|---|---|:---:|
+| Create New Batch | Batches & Students → Create New Batch | Admin |
+| Enroll New Student | Batches & Students → Add Student → Brand New | Admin |
+| Mark Batch Attendance | Attendance → Select Date & Batch → Save | Admin / Teacher |
+| View Fee Ledger | Student Fees & Reminders | Admin Only |
+| Dispatch Bulk Fee Reminders | Student Fees & Reminders → Send Bulk Reminders | Admin Only |
+| Reset Student Password | Access Control → Students → Key Icon | Admin Only |
+| Change Admin Password | Access Control → Admin Master Password | Admin Only |
+| Upload DPP / Test Paper | Assignments & DPPs → Upload | Admin / Teacher |
+| Enter Test Marks | Offline Marks Tracker → Select Test → Save | Admin / Teacher |
+| Print PTM Report Card | Offline Marks Tracker → Print Report | Admin / Teacher / Student |
+| Add Faculty Member | Faculty Management → Add Faculty Profile | Admin Only |
+| Add Result Banner | Results & Gallery → Share Result Banner | Admin Only |
+| Manual Cloud Sync | Header Cloud Icon | All |
+
+</textarea>
+
+<textarea id="guide-content-teacher" style="display:none;" hidden>
+# Divine Classes — Teacher & Faculty Guide
+
+**For:** Faculty Members, Mentors & Subject Teachers  
+**Role:** Teacher (Classroom Operations, Attendance, DPPs & Marks)  
+**Version:** 2.5 Cloud Edition  
+**Last updated:** November 2026
+
+---
+
+## Table of Contents
+
+1. [Welcome to Teacher Portal](#1-welcome-to-teacher-portal)
+2. [Teacher Login & Account Security](#2-teacher-login--account-security)
+3. [Teacher Dashboard & Daily Schedule](#3-teacher-dashboard--daily-schedule)
+4. [Taking Daily Class Attendance](#4-taking-daily-class-attendance)
+5. [Monthly Attendance Registers](#5-monthly-attendance-registers)
+6. [Assigned Batches & Student Roster](#6-assigned-batches--student-roster)
+7. [Uploading DPPs & Study Material](#7-uploading-dpps--study-material)
+8. [Offline Marks & Exam Grading](#8-offline-marks--exam-grading)
+9. [Teacher Profile & Faculty Card](#9-teacher-profile--faculty-card)
+10. [Institute Results & Gallery](#10-institute-results--gallery)
+11. [External Study Hub & Resources](#11-external-study-hub--resources)
+12. [Reviewing Student Feedback & Doubts](#12-reviewing-student-feedback--doubts)
+13. [AI Teaching & Lesson Assistant](#13-ai-teaching--lesson-assistant)
+14. [Theme & Display Settings](#14-theme--display-settings)
+15. [Teacher FAQs & Troubleshooting](#15-teacher-faqs--troubleshooting)
+16. [Teacher Quick Reference Card](#16-teacher-quick-reference-card)
+
+---
+
+## 1. Welcome to Teacher Portal
+
+Welcome to the **Divine Classes Teacher Portal**. This interface is tailor-made for educators to manage everyday academic tasks with maximum speed and zero administrative friction.
+
+### Modules Available to Teachers
+- **Dashboard:** At-a-glance summary of assigned batches, schedule, and recent uploads.
+- **Batches & Students:** View your assigned batches, student rosters, roll numbers, and parent contacts.
+- **Attendance:** Record daily class attendance (Present/Absent/Late) with 1-click cloud saving.
+- **Assignments & DPPs:** Upload homework PDFs, chapter worksheets, and test papers directly to Google Drive.
+- **Offline Marks Tracker:** Record test marks, evaluate student performance, and print PTM report cards.
+- **Faculty Management:** Manage your personal profile, qualifications, and digital Faculty ID card.
+- **Results & Gallery:** View institute achievements and gallery photos.
+- **External Study Hub:** Curate recommended reference links and revision videos for your classes.
+- **AI Assistant:** Google Gemini chatbot for lesson planning, question creation, and conceptual explanations.
+
+> **Privacy Note:** Student Fee Ledgers, Payment Collection, and System Access Control are restricted to Institute Administrators and are not displayed in the Teacher interface.
+
+---
+
+## 2. Teacher Login & Account Security
+
+### 2.1 Logging In
+1. Open the institute portal on your smartphone, tablet, or laptop.
+2. In the **Login ID** field, enter your registered **faculty email**, **phone number**, or **full name**.
+3. In the **Password** field, enter your password (default: `teacher123`, unless customized by Admin).
+4. Tick **Remember Me** to stay signed in on your personal classroom device.
+5. Tap **Sign In**.
+
+### 2.2 Account Best Practices
+- Never share your login credentials with students.
+- Always use the **Logout** button when working on a shared classroom computer or digital smartboard.
+- If you forget your password, contact the institute Admin to have it reset instantly in Access Control.
+
+---
+
+## 3. Teacher Dashboard & Daily Schedule
+
+The Dashboard gives you an immediate summary of your day:
+- **Assigned Batches:** Quick count and list of classes you teach.
+- **Today's Attendance Status:** Visual reminder of whether today's attendance has been marked for your batches.
+- **Study Materials Uploaded:** Number of active DPPs and test papers shared with your students.
+- **Offline Tests Conducted:** Overview of evaluated test series.
+- **Quick Action Cards:** One-click shortcuts to take attendance, upload DPPs, or record test scores.
+
+---
+
+## 4. Taking Daily Class Attendance
+
+Taking attendance takes less than 30 seconds per batch.
+
+### 4.1 Step-by-Step Daily Roll Call
+1. Open **Attendance** from the sidebar or bottom navigation bar.
+2. Select the current **Month** and **Date**.
+3. Select your **Batch** from the dropdown. The student roster appears automatically.
+4. For each student, tap:
+   - **Present** (Green button)
+   - **Absent** (Red button)
+   - **Late** (Amber button)
+5. Tap **Save attendance** at the bottom of the roster to commit the day's record to the cloud.
+
+### 4.2 Correcting Attendance
+- If a student arrives late after attendance was saved, tap **Edit** next to their name.
+- Change their status from Absent to Late or Present, and tap **Save**.
+- Changes immediately sync to the cloud database and update the student's attendance percentage.
+
+---
+
+## 5. Monthly Attendance Registers
+
+Review student regularity before parent meetings or tests:
+- Scroll down below the daily marking grid to view the **Monthly Register**.
+- See the full month's attendance matrix for your batch.
+- Quickly spot chronic absentees and follow up with parents.
+
+---
+
+## 6. Assigned Batches & Student Roster
+
+Understand your classroom strength:
+- Open **Batches & Students**.
+- Click your assigned batch card to inspect the full student roster.
+- Access student roll numbers, emergency parent contacts, and batch schedules.
+- You can also add existing students to your batch using **+ Add Student to Any Batch**.
+
+---
+
+## 7. Uploading DPPs & Study Material
+
+Distribute homework, revision notes, and test papers digitally without printing paper worksheets.
+
+### 7.1 How to Upload a File
+1. Open **Assignments & DPPs**.
+2. Click **Upload Assignment / DPP / Test Paper**.
+3. Enter the document details:
+   - **Title:** e.g. `Physics DPP-05 — Ray Optics & Reflection`
+   - **Description:** e.g. `Complete Q1 to Q25 before Wednesday class`
+   - **Category:** Select **Assignment PDF**, **Worksheet**, or **Test Paper**
+   - **Batch:** Select your specific batch (or General for all batches)
+4. Tap **Choose File** and select the PDF or image from your device.
+5. Tap **Upload & Save**.
+6. The file is uploaded to the institute's Google Drive folder, and enrolled students receive an instant in-app notification on their dashboard!
+
+---
+
+## 8. Offline Marks & Exam Grading
+
+Evaluate weekly and monthly classroom tests with ease.
+
+### 8.1 Conducting a New Test
+1. Open **Offline Marks Tracker**.
+2. Click **Create Test Record**.
+3. Specify your batch, subject, test title (e.g. `Chemical Bonding Chapter Test`), exam date, and **Maximum Marks** (e.g. `50`).
+4. Click **Create Test Record**.
+
+### 8.2 Entering Student Marks
+1. Select your batch and the test record.
+2. Enter the marks scored by each student (validated against maximum marks).
+3. Add qualitative remarks (e.g. `Great improvement`, `Revise molecular formulas`).
+4. Click **Save All** to publish scores to student dashboards.
+5. Tap **Print Report** to generate print-ready PTM report cards.
+
+---
+
+## 9. Teacher Profile & Faculty Card
+
+Showcase your academic credentials:
+- Open **Faculty Management** and locate your profile under **My Faculty Profile**.
+- Tap **Edit My Profile** to update your bio, qualifications, subjects taught, and profile photo.
+- Tap **Faculty ID Card** to generate or print your official digital faculty identification card.
+
+---
+
+## 10. Institute Results & Gallery
+
+- Open **Results & Gallery** to view institute toppers, board rankers, and celebration photo albums.
+- Inspire your students with past achievements.
+
+---
+
+## 11. External Study Hub & Resources
+
+- Share curated video lectures, NCERT digital solutions, and reference websites with your students.
+- Tap **Add Study Link**, specify the title, subject tag, and URL. Students can access them anytime under their Study Hub.
+
+---
+
+## 12. Reviewing Student Feedback & Doubts
+
+- Open **Parent & Student Feedback** to view feedback submitted by students in your batches.
+- Understand student perspectives on teaching pace, concept clarity, and test difficulty to continually improve classroom engagement.
+
+---
+
+## 13. AI Teaching & Lesson Assistant
+
+Leverage Google Gemini as your 24/7 academic teaching assistant:
+- Open **Chatbot** from the navigation menu.
+- Ask questions like:
+  - `Generate 5 challenging multiple-choice questions on Gravitation for Class 11 JEE.`
+  - `Explain the difference between inductive and resonance effects with real chemistry examples.`
+  - `Draft a 30-minute lesson outline for teaching integration by parts.`
+- Copy generated explanations and questions directly into your DPP worksheets.
+
+---
+
+## 14. Theme & Display Settings
+
+- Tap the **Moon / Sun** icon in the top header to toggle between **Dark Mode** and **Light Mode**.
+- When using mobile phones in the classroom, use the bottom navigation bar for quick 1-thumb switching between attendance, DPPs, and marks.
+
+---
+
+## 15. Teacher FAQs & Troubleshooting
+
+### A student is missing from my attendance list
+- Confirm with the Admin that the student is properly enrolled in your batch in **Batches & Students**.
+- Tap the **Cloud Sync icon** in the top header to refresh local data.
+
+### I made a mistake in yesterday's attendance
+- Open Attendance, select yesterday's date and batch.
+- Tap **Edit** next to the student, correct the status, and tap **Save**.
+
+### A file upload failed
+- Ensure your PDF or image file is under 20MB.
+- Check your internet connection and re-try.
+
+---
+
+## 16. Teacher Quick Reference Card
+
+| Task | Navigation Path | Action |
+|---|---|---|
+| Mark Attendance | Attendance → Date & Batch | Select Present/Absent/Late → Save |
+| Correct Attendance | Attendance → Monthly Register | Tap Edit → Change Status → Save |
+| Upload DPP Worksheet | Assignments & DPPs | Upload Assignment / DPP / Test Paper |
+| Record Test Marks | Offline Marks Tracker | Select Test → Enter Marks → Save All |
+| Print Report Card | Offline Marks Tracker | Tap Print Report / PTM Card |
+| Update My Profile | Faculty Management | My Faculty Profile → Edit |
+| Generate Faculty ID | Faculty Management | My Faculty Profile → Faculty ID Card |
+| Add Study Hub Link | External Study Hub | Add Study Link |
+| Ask AI Assistant | Chatbot | Type prompt or question |
+| Manual Cloud Sync | Header Cloud Icon | Tap to sync instantly |
+
+</textarea>
+
+<textarea id="guide-content-student" style="display:none;" hidden>
+# Divine Classes — Student Learning Portal Guide
+
+**For:** Students & Parents  
+**Role:** Student (Learning, Assignments, Attendance & Exam Progress)  
+**Version:** 2.5 Cloud Edition  
+**Last updated:** November 2026
+
+---
+
+## Table of Contents
+
+1. [Welcome to Student Learning Portal](#1-welcome-to-student-learning-portal)
+2. [Student Login & Access](#2-student-login--access)
+3. [Student Dashboard Overview](#3-student-dashboard-overview)
+4. [My Batch & Class Timetable](#4-my-batch--class-timetable)
+5. [My Attendance Record & Calendar](#5-my-attendance-record--calendar)
+6. [Assignments & Daily Practice Problems (DPPs)](#6-assignments--daily-practice-problems-dpps)
+7. [My Test Marks & Report Card](#7-my-test-marks--report-card)
+8. [Faculty & Teacher Mentors](#8-faculty--teacher-mentors)
+9. [Fee Details & Online Status](#9-fee-details--online-status)
+10. [External Study Hub & Video Resources](#10-external-study-hub--video-resources)
+11. [Parent & Student Feedback](#11-parent--student-feedback)
+12. [Divine AI Study Assistant (24/7 Doubts)](#12-divine-ai-study-assistant-247-doubts)
+13. [Student Digital ID Card & Theme](#13-student-digital-id-card--theme)
+14. [Student Help, FAQs & Study Tips](#14-student-help-faqs--study-tips)
+15. [Student Quick Reference Card](#15-student-quick-reference-card)
+
+---
+
+## 1. Welcome to Student Learning Portal
+
+Welcome to **Divine Classes**! This portal is your personal 24/7 digital academic companion. Whether you are at home, in class, or revising on the go, the portal gives you instant access to your assignments, attendance records, test marks, and academic study tools.
+
+### What You Can Do in the Portal
+- **Dashboard:** Check class notices, today's schedule, and fee alerts.
+- **My Attendance:** Monitor your daily attendance and monthly percentage.
+- **DPPs & Homework:** Download PDF worksheets, test papers, and class notes directly to your phone.
+- **Report Cards:** Check marks scored in weekly offline tests, your rank, and teacher remarks.
+- **Faculty Directory:** See who teaches you and their qualifications.
+- **External Study Hub:** Watch curated educational videos and download NCERT solutions.
+- **AI Study Assistant:** Ask physics, chemistry, maths, or biology doubts 24 hours a day!
+
+---
+
+## 2. Student Login & Access
+
+### 2.1 How to Log In
+1. Open the Divine Classes link on your phone, tablet, or laptop.
+2. In the **Login ID** box, enter any of the following:
+   - Your **Roll Number** (e.g. `DC-101`)
+   - Your registered **Mobile Number**
+   - Your **Full Name**
+3. In the **Password** box, enter your student password (default: `password123`, or the password provided by the institute).
+4. Check **Remember Me** so you don't have to re-enter your password every day on your phone.
+5. Tap **Sign In**.
+
+> If you ever forget your password, speak with the institute office or your batch teacher to reset it back to default in seconds.
+
+---
+
+## 3. Student Dashboard Overview
+
+The Dashboard is your main home screen. It highlights everything important:
+- **My Batch:** Shows your enrolled batch name and class schedule.
+- **My Attendance:** Displays your real-time attendance percentage.
+- **Study Materials:** Shows the number of study PDFs available for your batch.
+- **Offline Tests:** Number of evaluated tests you have taken.
+- **Fee Due Banner:** If a fee payment is pending, a clear banner appears with due amount and payment instructions.
+- **Quick ID Card:** Tap **Student ID Card** to view and show your official institute ID card.
+
+---
+
+## 4. My Batch & Class Timetable
+
+- Open **Batches & Students** from the menu or bottom bar.
+- View your batch room/hall location, subject timetable, and assigned mentor.
+- See your classmates and class timing schedules so you never miss a lecture.
+
+---
+
+## 5. My Attendance Record & Calendar
+
+Consistency is the key to cracking competitive exams.
+
+### 5.1 Checking Your Attendance
+- Open **Attendance** or tap **View Attendance Sheet** on the Dashboard.
+- See every day of the month marked clearly:
+  - **Present:** Marked in Green
+  - **Absent:** Marked in Red
+  - **Late:** Marked in Amber
+- View your **Attendance Percentage**. Aim to keep your attendance above **85%** throughout the academic session!
+
+---
+
+## 6. Assignments & Daily Practice Problems (DPPs)
+
+Your teachers regularly upload homework, DPP worksheets, and sample test papers.
+
+### 6.1 Finding and Downloading Materials
+1. Open **Assignments & DPPs**.
+2. All study materials uploaded for your batch (plus general institute materials) are displayed.
+3. Each material card shows:
+   - Title (e.g. `Maths DPP-03: Quadratic Equations`)
+   - Category (`Assignment PDF`, `Worksheet`, or `Test Paper`)
+   - Upload date and batch name
+4. Tap **Download / View** to open the PDF directly in your browser or save it to your phone's download folder.
+5. Practice the questions and bring your solved notebook to the next class!
+
+---
+
+## 7. My Test Marks & Report Card
+
+Track your academic progress after every offline classroom test.
+
+### 7.1 Viewing Test Scores
+1. Open **Offline Marks Tracker**.
+2. Select your batch to view your test history.
+3. For each test, you will see:
+   - Test Title & Subject
+   - Test Date
+   - **Marks Scored** out of **Maximum Marks**
+   - Percentage & Class Rank
+   - Teacher Remarks (e.g. `Excellent performance`, `Revise formula sheet`)
+
+### 7.2 Printing PTM Report Card
+- Tap **Print PTM Report Card** to produce a clean, official report card.
+- Show it proudly to your parents or save it as a PDF for your records!
+
+---
+
+## 8. Faculty & Teacher Mentors
+
+- Open **Faculty Management** to view your teachers.
+- Read teacher bios, subject specializations, and qualifications.
+- Find out designated doubt-clearing timings.
+
+---
+
+## 9. Fee Details & Online Status
+
+Stay informed about tuition fee schedules:
+- If a monthly fee is due, a gentle reminder banner is displayed on your Dashboard.
+- Tap **Pay / View Details** to check the pending balance, billing cycle, and institute payment details (such as official UPI ID or bank account details).
+- Once fees are paid at the institute counter, your status automatically updates to **Paid**.
+
+---
+
+## 10. External Study Hub & Video Resources
+
+Expand your knowledge beyond textbooks:
+- Open **External Study Hub**.
+- Access high-quality curated learning materials:
+  - Free video lectures and conceptual animations
+  - NCERT book PDF downloads
+  - Quick formula revision sheets
+- Tap **Open Material** to view the resource in a new tab.
+
+---
+
+## 11. Parent & Student Feedback
+
+We value your suggestions and want to give you the best learning environment!
+1. Open **Parent & Student Feedback**.
+2. Select whether you are submitting as **Student** or **Parent**.
+3. Choose a category: **Teaching Quality**, **Test Series**, **DPP Worksheets**, or **General Suggestion**.
+4. Give a star rating (3 to 5 stars) and write your feedback or doubt.
+5. Tap **Submit Feedback**. Our management reviews every entry!
+
+---
+
+## 12. Divine AI Study Assistant (24/7 Doubts)
+
+Stuck on a tricky concept at 11 PM? The **Divine AI Study Assistant** is here for you!
+
+### 12.1 How to Use the Chatbot
+1. Open **Chatbot** from the menu.
+2. If this is your first time, click **Connect Gemini** and enter a free Google AI Studio key (takes 1 minute with your Google account).
+3. Type any academic question:
+   - `Explain the difference between series and parallel resistance.`
+   - `How do I balance this chemical equation: Fe + H2O -> Fe3O4 + H2?`
+   - `Give me 3 mnemonic tricks to remember the periodic table.`
+4. The AI tutor provides step-by-step conceptual explanations instantly!
+
+---
+
+## 13. Student Digital ID Card & Theme
+
+### 13.1 Your Digital Student ID Card
+- Tap **Student ID Card** on your dashboard or profile icon.
+- Displays your photo, roll number, batch name, and emergency parent contact.
+- Useful for institute entry and library access.
+
+### 13.2 Dark & Light Theme
+- Tap the **Moon / Sun** icon in the header to switch between light mode and dark mode.
+- Dark mode is easy on your eyes during late-night study sessions!
+
+---
+
+## 14. Student Help, FAQs & Study Tips
+
+### I cannot open a downloaded DPP file
+- Make sure you have a PDF viewer (such as Google Drive PDF Viewer or Adobe Reader) installed on your phone.
+
+### Attendance shows Absent for a day I was Present
+- Speak with your subject teacher or mentor at the beginning of the next class so they can unlock and update your attendance record.
+
+### 3 Golden Study Tips from Divine Classes Mentors
+1. **Solve DPPs Daily:** Solve the Daily Practice Problems on the same day the lecture is delivered.
+2. **Review Mistakes:** After every offline test, note down your wrong answers in a separate 'Mistake Notebook'.
+3. **Ask Doubts Early:** Don't let doubts accumulate; ask your teachers or use the Divine AI Assistant immediately!
+
+---
+
+## 15. Student Quick Reference Card
+
+| What I Want To Do | Where To Click |
+|---|---|
+| Check My Attendance | Dashboard → View Attendance Sheet |
+| Download DPP or Notes | Assignments & DPPs → Tap Material Card |
+| Check Test Scores & Rank | Offline Marks Tracker → My Test Report |
+| Print PTM Report Card | Offline Marks Tracker → Print Report Card |
+| Show Student ID Card | Dashboard → Student ID Card |
+| Watch Revision Videos | External Study Hub → Open Material |
+| Ask an Academic Doubt | Chatbot → Type question |
+| Submit Parent Feedback | Parent & Student Feedback → Submit |
+| Switch Dark/Light Mode | Header Moon/Sun Icon |
+
+</textarea>
+
+<textarea id="guide-content" style="display:none;" hidden>
+# Divine Classes — Administrator Operations Manual
+
+**For:** Institute Administrators, Directors & Academic Coordinators  
+**Role:** Admin (Full Governance & Management)  
+**Version:** 2.5 Cloud Edition  
+**Last updated:** November 2026
+
+---
+
+## Table of Contents
+
+1. [Admin Role & Governance Overview](#1-admin-role--governance-overview)
+2. [Admin Dashboard & Institute KPIs](#2-admin-dashboard--institute-kpis)
+3. [Batch Creation & Scheduling](#3-batch-creation--scheduling)
+4. [Student Admissions, Rosters & ID Cards](#4-student-admissions-rosters--id-cards)
+5. [Institute Attendance Management](#5-institute-attendance-management)
+6. [Confidential Fee Ledger & Payments](#6-confidential-fee-ledger--payments)
+7. [WhatsApp & SMS Fee Reminders](#7-whatsapp--sms-fee-reminders)
+8. [Access Control & Password Management](#8-access-control--password-management)
+9. [Assignments, DPPs & Study Materials](#9-assignments-dpps--study-materials)
+10. [Offline Marks Tracker & Exam Results](#10-offline-marks-tracker--exam-results)
+11. [Faculty & Staff Management](#11-faculty--staff-management)
+12. [Results & Achievements Gallery](#12-results--achievements-gallery)
+13. [External Study Hub & Curated Resources](#13-external-study-hub--curated-resources)
+14. [Parent & Student Feedback Review](#14-parent--student-feedback-review)
+15. [Institute AI Assistant Guidelines](#15-institute-ai-assistant-guidelines)
+16. [Cloud Sync, Database Backups & Data Safety](#16-cloud-sync-database-backups--data-safety)
+17. [Admin Troubleshooting & Operations Manual](#17-admin-troubleshooting--operations-manual)
+18. [Administrator Quick Reference Card](#18-administrator-quick-reference-card)
+
+---
+
+## 1. Admin Role & Governance Overview
+
+Welcome to the **Divine Classes Administrator Portal**. As an Administrator, you have complete authority over day-to-day coaching institute operations, financial records, student admissions, faculty oversight, and cloud security.
+
+### Core Administrative Responsibilities
+- **Admissions & Batches:** Create batches, schedule subjects, enroll students, and issue official ID cards.
+- **Attendance Oversight:** Monitor daily student attendance marked by faculty, review monthly registers, and rectify discrepancies.
+- **Financial Governance:** Maintain the **Admin Confidential Fee Ledger**, collect payments, record partial installments, and dispatch automated WhatsApp/SMS fee reminders.
+- **Access Control & Security:** Authorize user accounts, reset student and teacher passwords, block delinquent accounts, and secure the **Admin Master Password**.
+- **Academic Content & Marks:** Oversee DPP uploads, manage offline test series, and generate student report cards.
+- **Cloud Database:** Maintain real-time cloud sync with Supabase and Google Sheets.
+
+> The Fee Ledger, Access Control, Master Password, and Institute Settings are strictly hidden from Teachers and Students.
+
+---
+
+## 2. Admin Dashboard & Institute KPIs
+
+The Dashboard acts as your central command center with high-level KPI cards and 1-click operational shortcuts.
+
+### KPI Metric Cards
+- **Active Batches:** Total active coaching batches and enrolled student count.
+- **Study Uploads:** Total assignments, DPP worksheets, and test papers hosted on Google Drive.
+- **Offline Class Tests:** Total evaluated exams conducted this academic cycle.
+- **Pending Fees:** Total outstanding dues across all active students with instant collection tracking.
+
+### Quick Actions
+- **Create Batch:** Opens the batch setup wizard.
+- **Confidential Fee Ledger:** Direct jump to payments and ledger tables.
+- **Access Control:** Manage student and teacher logins and passwords.
+- **Marks Tracker:** Review recent test performance.
+
+---
+
+## 3. Batch Creation & Scheduling
+
+Batches structure your coaching curriculum by class, target exam, and schedule.
+
+### 3.1 Create a New Batch
+1. Open **Batches & Students** from the sidebar or bottom bar.
+2. Click **Create New Batch**.
+3. Fill in the batch parameters:
+   - **Batch Name:** e.g. `Class 11 — JEE Advanced Physics & Maths`
+   - **Room / Hall:** e.g. `Hall A (Main Campus)`
+   - **Schedule & Timings:** e.g. `Mon, Wed, Fri • 4:00 PM – 7:00 PM`
+   - **Subjects:** e.g. `Physics, Mathematics`
+   - **Faculty Mentor:** Select assigned teacher from the dropdown.
+4. Click **Create Batch**. The batch is immediately created and synced to the cloud.
+
+### 3.2 Managing Batch Rosters
+- Open any batch card to see all currently enrolled students, their roll numbers, and contact details.
+- Use **View Batch Materials →** to inspect uploaded DPPs for that specific batch.
+
+---
+
+## 4. Student Admissions, Rosters & ID Cards
+
+Manage student registrations from inquiry to graduation.
+
+### 4.1 Enrolling a Brand-New Student
+1. Open **Batches & Students**.
+2. Click **Add Student** on the batch card, then select **Enroll Brand New Student**.
+3. Fill in the student record:
+   - **Full Name:** Student's legal name.
+   - **Roll Number:** Unique identifier (e.g. `DC-101`).
+   - **Parent / Guardian Name:** For communications.
+   - **Phone / WhatsApp:** Parent contact number for attendance alerts and fee reminders.
+   - **Target Batch:** Assigned class/batch.
+   - **Monthly Fee / Total Course Fee:** Fee obligation.
+   - **Fee Due Date:** Monthly billing cycle date.
+   - **Photo:** (Optional) Upload student avatar or passport photo.
+4. Click **Save Student**. The student is automatically enrolled and given login credentials (`password123`).
+
+### 4.2 Generating Official Student ID Cards
+1. Locate the student in **Batches & Students** or the Fee Ledger.
+2. Click **Student ID Card**.
+3. A print-ready digital identity card is generated with institute branding, roll number, batch, parent phone, and photo.
+4. Tap **Print ID Card** or save as PDF to hand over to the student.
+
+---
+
+## 5. Institute Attendance Management
+
+Admin has full view and editing permissions over institute-wide attendance.
+
+### 5.1 Marking Daily Batch Attendance
+1. Open **Attendance**.
+2. Select the **Month**, **Date**, and **Batch**.
+3. For each student, mark:
+   - **Present** (Green)
+   - **Absent** (Red)
+   - **Late** (Amber)
+4. Click **Save attendance** to commit records to the database.
+
+### 5.2 Reviewing Monthly Registers
+- Scroll down to the **Monthly Register** table below the marking grid.
+- View the entire month's attendance matrix for the batch.
+- Click **Edit** next to any student to unlock and correct past attendance entries.
+
+---
+
+## 6. Confidential Fee Ledger & Payments
+
+The Fee Ledger is strictly confidential and visible only to Administrators.
+
+### 6.1 Financial Summary Cards
+- **Monthly Expected Fees:** Total monthly revenue expected from enrolled students.
+- **Total Fees Collected:** Cumulative revenue received to date.
+- **Fee Due Students:** Number of students with outstanding dues.
+- **Collection Health:** Percentage of students whose payments are up to date.
+
+### 6.2 Recording Fee Payments
+1. Open **Student Fees & Reminders**.
+2. Locate the student using the search bar (filter by name, roll number, or mobile).
+3. Click the **Record Payment** action.
+4. Enter the amount received, payment mode (Cash, UPI, Cheque, Bank Transfer), and optional transaction note.
+5. Click **Confirm Payment**. The student's balance updates in real time, and their dashboard reflects the new payment status.
+
+### 6.3 Exporting Fees to CSV
+- Click **Export to CSV** at the top of the Fee Ledger.
+- Downloads a clean spreadsheet containing student names, roll numbers, fees, paid amounts, due balances, and parent phones for offline accounting audits.
+
+---
+
+## 7. WhatsApp & SMS Fee Reminders
+
+Quickly notify parents regarding overdue fees with zero manual typing.
+
+### 7.1 Single Student Reminder
+- Click the **bell / reminder icon** next to any student with pending dues.
+- Instantly sends an in-app alert to the student's dashboard and prepares a WhatsApp/SMS alert for the parent.
+
+### 7.2 Send Bulk Reminders (N)
+- When multiple students have pending balances, a prominent orange button appears: **Send Bulk Reminders (N)**.
+- Tap this button once to dispatch reminder alerts to all students with overdue fees simultaneously.
+
+---
+
+## 8. Access Control & Password Management
+
+Safeguard institute integrity with centralized credential management.
+
+### 8.1 Students Account Control
+- **Search & Filter:** Find students by roll number, name, or batch.
+- **Authorize All:** Instantly activates all newly registered students in one tap.
+- **Reset to Default:** Sets student password back to `password123` if they forgot it.
+- **Block / Unblock:** Temporarily lock accounts of suspended or fee-defaulting students. Blocked users cannot sign in and are shown an administrative contact notice.
+
+### 8.2 Teachers Account Control
+- View active faculty logins.
+- Authorize new teachers or reset faculty passwords to `teacher123`.
+
+### 8.3 Admin Master Password
+- Go to **Access Control → Admin Master Password**.
+- The Master Password protects the Admin portal, Fee Ledger, and Access Control console.
+- Enter the current password, type the new password, and click **Update Admin Password**.
+
+---
+
+## 9. Assignments, DPPs & Study Materials
+
+Centralize digital learning materials for your students.
+
+### 9.1 Uploading Material
+1. Open **Assignments & DPPs**.
+2. Click **Upload Assignment / DPP / Test Paper**.
+3. Enter title, description, and category (**Assignment PDF**, **Worksheet**, or **Test Paper**).
+4. Select the target batch (or select **General** for all institute students).
+5. Choose the file from your computer or phone.
+6. The file is uploaded to Google Drive, and students immediately receive an in-app notification!
+
+---
+
+## 10. Offline Marks Tracker & Exam Results
+
+Track classroom test performance and generate PTM report cards.
+
+### 10.1 Conducting an Offline Test
+1. Open **Offline Marks Tracker**.
+2. Click **Create Test Record**.
+3. Specify batch, test title (e.g. `Physics Mechanics Midterm`), subject, date, and maximum marks.
+4. Save the test record.
+
+### 10.2 Grading & Publishing Scores
+1. Open the test and enter each student's score.
+2. Add teacher/admin remarks.
+3. Click **Save All** to publish scores to student dashboards.
+4. Tap **Print PTM Report Card** to produce official printed transcripts with rank, percentage, and teacher feedback.
+
+---
+
+## 11. Faculty & Staff Management
+
+Maintain your faculty directory and teaching assignments.
+
+### 11.1 Registering Teachers
+1. Open **Faculty Management** and click **Add Faculty Profile**.
+2. Enter faculty name, subject specialization, qualifications, experience, phone, and email.
+3. Save profile. Teachers can then log in using their email or phone.
+
+---
+
+## 12. Results & Achievements Gallery
+
+Promote your coaching success stories.
+
+### 12.1 Publishing Results
+1. Open **Results & Gallery** and click **Share Result Banner / Photo**.
+2. Enter achievement title (e.g. `AIR 142 in JEE Advanced 2026`), student name, badge, and upload banner image.
+3. Banners are immediately featured in the institute gallery for all students and teachers to view.
+
+---
+
+## 13. External Study Hub & Curated Resources
+
+Curate high-yield educational links for self-study.
+- Add links to NCERT solutions, reference formula sheets, and video playlists.
+- Tag by subject: Physics, Chemistry, Mathematics, Biology.
+
+---
+
+## 14. Parent & Student Feedback Review
+
+Review feedback submitted by parents and students.
+- Monitor star ratings across Teaching Quality, DPPs, Test Series, and General Administration.
+- Address concerns proactively to ensure high parent satisfaction.
+
+---
+
+## 15. Institute AI Assistant Guidelines
+
+Divine Classes includes an AI Study Assistant powered by Google Gemini.
+- Assists students with 24/7 academic doubt solving in Science and Mathematics.
+- Ensure students connect their free Google AI Studio key inside the Chatbot module.
+
+---
+
+## 16. Cloud Sync, Database Backups & Data Safety
+
+The portal uses a resilient dual-layer architecture:
+- **Instant Local Storage:** Changes save immediately to device cache.
+- **Cloud Database:** Automatic background synchronization with Supabase and Google Sheets.
+- **Manual Sync:** Click the Cloud icon in the top header at any time to force an instant two-way sync.
+- **Safety Tip:** Export the Fee Ledger to CSV at the end of each billing cycle for extra offline backup.
+
+---
+
+## 17. Admin Troubleshooting & Operations Manual
+
+### Account Cannot Sign In
+1. Check that the Login ID is correct (e.g. `admin`, `anil`, or `admin@divineclasses.in`).
+2. Verify account is marked **Active** in Access Control (not **Blocked**).
+3. If password was lost, use the Admin Master Password or reset it in Access Control.
+
+### Cloud Sync Warning
+- If the header displays "Saved locally", check your internet connection and tap the cloud button once reconnected.
+
+---
+
+## 18. Administrator Quick Reference Card
+
+| Task | Navigation Path | Role Required |
+|---|---|:---:|
+| Create New Batch | Batches & Students → Create New Batch | Admin |
+| Enroll New Student | Batches & Students → Add Student → Brand New | Admin |
+| Mark Batch Attendance | Attendance → Select Date & Batch → Save | Admin / Teacher |
+| View Fee Ledger | Student Fees & Reminders | Admin Only |
+| Dispatch Bulk Fee Reminders | Student Fees & Reminders → Send Bulk Reminders | Admin Only |
+| Reset Student Password | Access Control → Students → Key Icon | Admin Only |
+| Change Admin Password | Access Control → Admin Master Password | Admin Only |
+| Upload DPP / Test Paper | Assignments & DPPs → Upload | Admin / Teacher |
+| Enter Test Marks | Offline Marks Tracker → Select Test → Save | Admin / Teacher |
+| Print PTM Report Card | Offline Marks Tracker → Print Report | Admin / Teacher / Student |
+| Add Faculty Member | Faculty Management → Add Faculty Profile | Admin Only |
+| Add Result Banner | Results & Gallery → Share Result Banner | Admin Only |
+| Manual Cloud Sync | Header Cloud Icon | All |
+
+</textarea>
+
+<textarea id="guide-content-developer" style="display:none;" hidden>
+# Divine Classes — Institute Portal User Manual
+
+**Version:** 2.5 Cloud Edition  
+**Applies to:** Admin, Teacher, Student and Developer portals  
+**Last updated:** November 2026
+
+---
+
+## Table of Contents
+
+1. [What This Portal Does](#1-what-this-portal-does)
+2. [Roles and Permissions](#2-roles-and-permissions)
+3. [Getting Started](#3-getting-started)
+4. [Logging In](#4-logging-in)
+5. [The Main Screen](#5-the-main-screen)
+6. [Dashboard](#6-dashboard)
+7. [Batches & Students](#7-batches--students)
+8. [Attendance](#8-attendance)
+9. [Student Fees & Reminders](#9-student-fees--reminders)
+10. [Access Control](#10-access-control)
+11. [Assignments & DPPs](#11-assignments--dpps)
+12. [Offline Marks Tracker](#12-offline-marks-tracker)
+13. [Faculty Management](#13-faculty-management)
+14. [Results & Gallery](#14-results--gallery)
+15. [External Study Hub](#15-external-study-hub)
+16. [Parent & Student Feedback](#16-parent--student-feedback)
+17. [Chatbot](#17-chatbot)
+18. [Settings (Developer Only)](#18-settings-developer-only)
+19. [Demo Mode](#19-demo-mode)
+20. [Theme and Accent Colour](#20-theme-and-accent-colour)
+21. [Cloud Sync and Data Safety](#21-cloud-sync-and-data-safety)
+22. [Dummy / Demo Data](#22-dummy--demo-data)
+23. [Client Handover Checklist](#23-client-handover-checklist)
+24. [Troubleshooting](#24-troubleshooting)
+25. [Glossary](#25-glossary)
+
+---
+
+## 1. What This Portal Does
+
+Divine Classes is a complete coaching-institute management portal. It lets the institute:
+
+- Manage batches and student records.
+- Mark daily attendance and view monthly registers.
+- Track student fees and send payment reminders.
+- Control who can log in and reset passwords.
+- Upload assignments, DPPs and test papers.
+- Record offline test marks and print report cards.
+- Manage faculty profiles and ID cards.
+- Publish result banners and event photos.
+- Share external study links.
+- Collect parent and student feedback.
+- Provide an AI study assistant (Gemini chatbot).
+- Back up and synchronise data to the cloud.
+
+The portal works on **laptop/desktop** and **mobile/Android**. On mobile, the main modules are available from the bottom navigation bar.
+
+---
+
+## 2. Roles and Permissions
+
+There are four roles. Each role sees a different set of pages.
+
+| Module | Admin | Teacher | Student | Developer |
+|---|:---:|:---:|:---:|:---:|
+| Dashboard | ✅ | ✅ | ✅ | ✅ |
+| Batches & Students | ✅ | ✅ | ✅ (own batch only) | ✅ |
+| Attendance | ✅ | ✅ | ✅ (own record) | ✅ |
+| Student Fees & Reminders | ✅ | ❌ | ❌ | ✅ |
+| Access Control | ✅ | ❌ | ❌ | ✅ |
+| Assignments & DPPs | ✅ | ✅ | ✅ (own batch) | ✅ |
+| Offline Marks Tracker | ✅ | ✅ | ✅ (own report card) | ✅ |
+| Faculty Management | ✅ | ✅ (own profile) | ✅ (view only) | ✅ |
+| Results & Gallery | ✅ | ✅ | ✅ | ✅ |
+| External Study Hub | ✅ | ✅ | ✅ | ✅ |
+| Parent & Student Feedback | ✅ | ✅ | ✅ | ✅ |
+| Chatbot | ✅ | ✅ | ✅ | ✅ |
+| Settings | ❌ | ❌ | ❌ | ✅ |
+
+### Important role rules
+
+- **Admin is not a Developer.** Admin does not get Developer permissions and cannot open Settings.
+- **Settings is Developer-only.** Only the Developer can change global portal settings, database connections, demo data and role access.
+- **Admin** manages day-to-day institute work: students, batches, attendance, fees, access control, materials, marks, faculty, gallery, links and feedback.
+- **Teacher** manages their own profile, attendance, materials, marks and can add students to batches. Teachers cannot see fees or Access Control.
+- **Student** sees only their own batch, attendance, materials, marks and profile-related information. Fees and Access Control are hidden.
+- **Developer** can see every page and every setting.
+
+> The Developer can also change which modules Admin, Teacher and Student can see from **Settings → Portal Access by Role**.
+
+---
+
+## 3. Getting Started
+
+### What you need
+
+- The portal web link supplied by the institute/developer.
+- A supported browser: Chrome, Microsoft Edge, Safari or the Android browser.
+- An internet connection for cloud sync.
+- Your Login ID and password.
+
+### First-time setup (Developer)
+
+1. Open **Settings**.
+2. Fill in **Institute Profile**, **Contact & Payments** and **Social Media Channels**.
+3. Set a strong **Master Admin Password** in **Portal Security & Passwords**.
+4. Connect the **Primary Cloud Database** and, if required, the **Cloud Mirror Backup**.
+5. Review **Portal Access by Role**.
+6. Turn **OFF** requirement labels and demo data before handing the portal to the client.
+7. Save all settings.
+
+### First-time setup (Admin)
+
+1. Log in with the Admin ID and password.
+2. Open **Batches & Students** and create the first batch.
+3. Add students to the batch.
+4. Open **Faculty Management** and add faculty profiles.
+5. Open **Access Control** and confirm student/faculty accounts are authorised.
+6. Change the Admin Master Password from **Access Control → Admin Master Password**.
+
+---
+
+## 4. Logging In
+
+### 4.1 Login screen
+
+Open the portal link. The login card asks for:
+
+- **Login ID** — Roll Number, Email, Phone Number or Admin ID.
+- **Password**.
+- **Remember me** — keeps you signed in on this device.
+- **Forgot Password?** — shows the institute contact number.
+
+Tap the **eye icon** to show or hide the password.
+
+### 4.2 Login IDs by role
+
+| Role | What to enter as Login ID | Default password |
+|---|---|---|
+| **Admin** | `admin`, `anil`, `anil chahar`, or `admin@divineclasses.in` | `admin123` (or `admin`) |
+| **Teacher** | Faculty email, phone number, or full name | `teacher123` (unless changed) |
+| **Student** | Roll number (e.g. `DC-101`), phone number, or full name | `password123` (unless changed) |
+| **Developer** | Lead Developer email configured on the server | Set in server Script Properties |
+
+> Passwords are case-sensitive. If the institute has changed a password, use the new one. Contact the Admin if you have forgotten it.
+
+### 4.3 Blocked or inactive accounts
+
+- **Blocked** — the account cannot sign in. A helpline message appears.
+- **Inactive** — the account is archived and hidden from normal lists.
+
+Only an Admin can block, unblock or reactivate accounts from **Access Control**.
+
+### 4.4 Session and auto-logout
+
+- If **Remember me** is ticked, the session can last up to **30 days**.
+- After **2 hours of inactivity**, the portal automatically logs you out for security.
+- Always use the **logout button** on a shared computer.
+
+---
+
+## 5. The Main Screen
+
+### 5.1 Header (top bar)
+
+From left to right:
+
+| Icon / area | What it does |
+|---|---|
+| **☰ Menu** | Opens or closes the sidebar. |
+| **Page title** | Shows the current module. |
+| **Cloud icon** | Manually syncs data with the cloud database. |
+| **Moon / Sun icon** | Switches between Light and Dark theme (if your role is allowed). |
+| **Bell icon** | Opens notifications. A red badge shows unread items. |
+| **Profile / Logout** | Shows your account and the logout button (on mobile view, displayed as a 4th compact square button with equal spacing matching the other 3 controls). |
+
+### 5.2 Sidebar
+
+The sidebar lists every module your role can access. On mobile, use the **bottom navigation bar** instead.
+
+### 5.3 Mobile bottom navigation
+
+The bottom bar gives one-tap access to the main modules. The active module is highlighted. Some modules may be hidden depending on **Portal Access by Role**.
+
+### 5.4 Notifications
+
+Open the **bell icon** to see:
+
+- Fee reminders.
+- New study-material alerts.
+- Institute notices.
+
+Students receive fee reminders here and also see a reminder banner on the Dashboard.
+
+### 5.5 Cloud sync indicator
+
+The cloud button shows the sync state:
+
+- **Syncing with Cloud…** — upload in progress.
+- **✓ Cloud Synced** — data is up to date.
+- **Saved locally** — saved on this device; cloud sync will retry.
+
+---
+
+## 6. Dashboard
+
+The Dashboard is the home screen. It gives a quick summary of the institute.
+
+### Admin dashboard
+
+- **Active Batches** — number of batches and enrolled students.
+- **Study Uploads** — total assignments, DPPs and test papers.
+- **Offline Class Tests** — number of tests conducted.
+- **Pending Fees** — total outstanding amount.
+- Quick-action cards open the related module.
+- Recent activity and cloud status.
+
+### Teacher dashboard
+
+- Assigned batches.
+- Study uploads.
+- Offline tests.
+- Quick access to attendance, materials and marks.
+
+### Student dashboard
+
+- **My Batch** — the batch the student belongs to.
+- **My Batch Materials** — files for the student's batch.
+- **Offline Class Tests** — tests conducted.
+- **My Attendance** — attendance percentage.
+- **Fee reminder banner** — appears when a fee is due, with a **Pay / View Details** button.
+- Buttons for **Student ID Card** and **View Attendance Sheet**.
+
+> Dashboard cards are clickable and take you straight to the module.
+
+---
+
+## 7. Batches & Students
+
+This module manages coaching batches and the students inside them.
+
+### 7.1 Create a new batch (Admin / Developer)
+
+1. Open **Batches & Students**.
+2. Click **Create New Batch**.
+3. Enter the batch name, room/hall, schedule, subjects and mentor.
+4. Click **Create Batch**.
+
+### 7.2 Add a student to a batch
+
+**Admin:**
+
+1. Open the batch card.
+2. Click **Add Student**.
+3. Choose an existing student or register a new one.
+4. Save.
+
+**Teacher:**
+
+1. Open **Batches & Students**.
+2. Click **+ Add Student to Any Batch**.
+3. Select the batch and student.
+4. Save.
+
+### 7.3 Register a brand-new student
+
+When adding a student, choose **Option 2: Enroll Brand New Student** and fill in:
+
+- Full name.
+- Roll number.
+- Parent name.
+- Phone number.
+- Batch.
+- Monthly fee / total fee.
+- Due date.
+- Photo (optional).
+
+The student can then log in with their roll number, phone number or name.
+
+### 7.4 View batch details
+
+Each batch card shows:
+
+- Room/hall.
+- Schedule.
+- Subjects.
+- Mentor.
+- Enrolled students.
+- **View Batch Materials →** shortcut.
+
+Students see only their own batch and classmates.
+
+### 7.5 Student ID card
+
+Admin, Teacher (where permitted) and the student can open a student's **ID Card**. The card can be printed or shared from the browser.
+
+---
+
+## 8. Attendance
+
+Attendance is available to Admin, Teacher and Student.
+
+### 8.1 Mark daily attendance (Admin / Teacher)
+
+1. Open **Attendance**.
+2. Select the **month**.
+3. Select the **date**.
+4. Select the **batch**.
+5. For each student, choose:
+   - **Present**
+   - **Absent**
+   - **Late**
+6. Click **Save** next to a student, or use **Save attendance** to save the whole day.
+
+### 8.2 Monthly register
+
+Below the daily marking area, the monthly register shows saved records for the selected batch and month. Use it to review or correct attendance.
+
+### 8.3 Edit attendance
+
+- Use **Edit** next to a student to unlock a saved record.
+- Change the status and save again.
+- Use **Sync** to reload the month from the database.
+
+### 8.4 Student view
+
+Students see:
+
+- Their own attendance percentage.
+- Present / absent counts.
+- The monthly attendance sheet.
+- **View Attendance Sheet** from the Dashboard.
+
+### 8.5 Tips
+
+- Mark attendance on the same day to avoid missing records.
+- Always choose the correct batch before saving.
+- If a student joins mid-month, their earlier days remain blank rather than absent.
+
+---
+
+## 9. Student Fees & Reminders
+
+**Admin and Developer only.** Teachers and students cannot open this module.
+
+### 9.1 Fee summary cards
+
+- **Monthly Expected Fees** — total expected from active students.
+- **Total Fees Collected** — cumulative payments.
+- **Fee Due Students** — number of students with pending fees.
+- **Collection Health** — percentage of students up to date.
+
+### 9.2 Fee ledger
+
+The table lists each active student with:
+
+- Student name and roll.
+- Parent/contact.
+- Total paid.
+- Monthly fee.
+- Status / fee due date.
+- Actions.
+
+### 9.3 Record a payment
+
+1. Find the student in the fee ledger.
+2. Open the payment action.
+3. Enter the amount paid.
+4. Save.
+
+The student's paid amount and due status update immediately.
+
+### 9.4 Send a reminder to one student
+
+Click the **bell / reminder** button next to a student. The reminder is added to the student's notification bell and dashboard.
+
+### 9.5 Send bulk reminders
+
+Click **Send Bulk Reminders (N)** to notify every student with a pending fee at once.
+
+> Reminders are in-app notifications. The institute can also use the student's phone number to send WhatsApp/SMS manually.
+
+### 9.6 Export fees to CSV
+
+Click **Export to CSV** to download the fee ledger. Open it in Excel, Google Sheets or any spreadsheet app.
+
+### 9.7 Student fee view
+
+Students do not see the fee ledger. They see:
+
+- Their own pending balance.
+- The due date.
+- A **Pay / View Details** button.
+- A fee reminder banner on the Dashboard.
+- UPI payment ID from **Settings → Contact & Payments**.
+
+---
+
+## 10. Access Control
+
+**Admin and Developer only.**
+
+Access Control manages login access, passwords and account status.
+
+### 10.1 Students tab
+
+- Search by name, roll number or mobile.
+- Filter by batch.
+- **Authorize All** — sets all students to Active.
+- **Reset All to Default** — resets student passwords to `password123`.
+- **Inactive / Removed archive** — view archived students and restore them.
+
+### 10.2 Teachers tab
+
+- View all faculty accounts.
+- **Authorize All Teachers** — sets all teachers to Active.
+- Block or unblock individual teachers.
+- Reset a teacher password.
+
+### 10.3 Admin Master Password tab
+
+- **Reveal / Hide** the current Admin Master Password.
+- Enter a new password and confirm it.
+- Click **Update Admin Password**.
+
+> The Admin Master Password unlocks the Admin portal, Fees Management and Access Control.
+
+### 10.4 Block or unblock an account
+
+1. Find the student or teacher.
+2. Click the status action.
+3. Choose **Blocked** or **Active**.
+
+Blocked users are stopped at login and shown a helpline message.
+
+### 10.5 Change a student or teacher password
+
+1. Find the account.
+2. Click the key/password action.
+3. Enter the new password.
+4. Save.
+
+### 10.6 Inactive vs Blocked
+
+| Status | Meaning | Can log in? |
+|---|---|---|
+| **Active** | Normal account | ✅ Yes |
+| **Blocked** | Access denied by Admin | ❌ No |
+| **Inactive** | Archived / removed from active lists | ❌ No |
+
+---
+
+## 11. Assignments & DPPs
+
+This module shares study files with students.
+
+### 11.1 Upload a file (Admin / Teacher / Developer)
+
+1. Open **Assignments & DPPs**.
+2. Click **Upload Assignment / DPP / Test Paper**.
+3. Enter:
+   - Title.
+   - Description.
+   - Category: **Assignment PDF**, **Worksheet**, or **Test Paper**.
+   - Batch (or General for all batches).
+   - File.
+4. Save.
+
+The file is uploaded to the configured Google Drive folder and a download link is stored in the database.
+
+### 11.2 Filter by batch (Admin / Teacher)
+
+Use the **Filter by Batch** dropdown to show files for one batch or all batches.
+
+### 11.3 Student view
+
+Students see only:
+
+- Files for their own batch.
+- General files available to everyone.
+
+Click any file to open or download it. On mobile, the file opens in the browser or the phone's download folder.
+
+### 11.4 File status badges
+
+- **Drive Link ✓** — the download link is saved.
+- **No Link** — an old record whose file was never uploaded. Delete it and upload again.
+
+### 11.5 Tips
+
+- Use clear titles, e.g. `Physics DPP-04 — Electrodynamics`.
+- Keep file names short.
+- Check that the Drive folder is shared correctly before uploading.
+- Students receive a notification when new material is uploaded.
+
+---
+
+## 12. Offline Marks Tracker
+
+This module records marks from offline class tests.
+
+### 12.1 Create a test (Admin / Teacher / Developer)
+
+1. Open **Offline Marks Tracker**.
+2. Click **Create Test Record**.
+3. Enter:
+   - Target batch.
+   - Test title.
+   - Subject.
+   - Test date.
+   - Maximum marks.
+4. Click **Create Test Record**.
+
+### 12.2 Enter marks
+
+1. Select the batch and test.
+2. For each student, enter the score and optional remarks.
+3. Click **Save** next to a student, or **Save All** for the whole batch.
+
+Marks are validated against the maximum marks.
+
+### 12.3 Analytics
+
+The module shows:
+
+- Average score.
+- Highest score.
+- Student-wise performance.
+- Test-wise comparison.
+
+### 12.4 Student report card
+
+Students see:
+
+- **My Test Report Card**.
+- Test name, date, subject and marks.
+- Percentage and remarks.
+- **Print Report** for a PTM report card.
+- **My ID Card**.
+
+### 12.5 Print a report
+
+Use **Print Report** / **Print PTM Report Card**. The browser print dialog opens; choose a printer or **Save as PDF**.
+
+---
+
+## 13. Faculty Management
+
+### 13.1 Add faculty (Admin / Developer)
+
+1. Open **Faculty Management**.
+2. Click **Add Faculty Profile**.
+3. Enter:
+   - Name.
+   - Subject.
+   - Qualification.
+   - Experience.
+   - Specialisation.
+   - Bio.
+   - Email and phone (used for login).
+   - Photo (optional).
+4. Save.
+
+### 13.2 Teacher's own profile
+
+Teachers see a **My Faculty Profile** card with:
+
+- **Edit My Profile**.
+- **Update Photo**.
+- **Faculty ID Card**.
+
+### 13.3 Student view
+
+Students can view active faculty profiles: subject, qualification, experience, specialisation and doubt-solving timings.
+
+### 13.4 Faculty ID card
+
+Open a faculty profile and click **Faculty ID Card** to print or share it.
+
+---
+
+## 14. Results & Gallery
+
+### 14.1 Add a result banner or photo (Admin / Developer)
+
+1. Open **Results & Gallery**.
+2. Click **Share Result Banner / Photo**.
+3. Enter:
+   - Title.
+   - Category.
+   - Badge / achievement text.
+   - Caption.
+   - Image URL or upload.
+4. Save.
+
+### 14.2 View the gallery
+
+- Click any image to open the **lightbox**.
+- The lightbox shows the full banner.
+- Close it with the **×** button.
+
+### 14.3 Tips
+
+- Use clear result banners with student names and ranks only if permission is given.
+- Keep images under the recommended size for faster loading.
+- Gallery items are visible to all roles.
+
+---
+
+## 15. External Study Hub
+
+This module shares links to external study resources.
+
+### 15.1 Add a study link (Admin / Teacher)
+
+1. Open **External Study Hub**.
+2. Click **Add Study Link**.
+3. Enter:
+   - Resource title.
+   - Website / provider.
+   - Subject tag.
+   - URL.
+   - Description.
+4. Click **Add Link**.
+
+### 15.2 Open a link
+
+Click **Open Material** to open the resource in a new tab.
+
+### 15.3 Delete a link
+
+Admin can delete a link only if **Settings → Admin Permissions → Allow Admin to Delete Study Links** is ON. The Developer can always delete.
+
+> The **External Study Links Hub** is preserved by the permanent dummy/testing-data cleanup.
+
+---
+
+## 16. Parent & Student Feedback
+
+### 16.1 Submit feedback
+
+1. Open **Parent & Student Feedback**.
+2. Enter:
+   - Full name.
+   - Submitted as: **Parent** or **Student**.
+   - Rating (3–5 stars).
+   - Associated batch.
+   - Category: Teaching Quality, Offline Test Series, Study Material & DPPs, General Suggestion.
+   - Comment.
+3. Click **Submit Feedback**.
+
+### 16.2 Feedback wall
+
+The right side shows recent feedback with:
+
+- Author and role.
+- Batch and date.
+- Star rating.
+- Comment.
+- Category.
+
+### 16.3 Delete feedback
+
+Admin can delete feedback only if **Settings → Admin Permissions → Allow Admin to Delete Feedback** is ON. The Developer can always delete.
+
+---
+
+## 17. Chatbot
+
+The Chatbot is an AI study assistant powered by Google Gemini.
+
+### 17.1 Enable the chatbot (Developer)
+
+1. Open **Settings → Portal Chatbot**.
+2. Turn **ON Enable Gemini Help Chatbot**.
+3. Save.
+
+### 17.2 Connect your Gemini key (each user)
+
+Each user connects their own key:
+
+1. Open **Chatbot**.
+2. Click **Connect Gemini**.
+3. Create a Gemini API key in **Google AI Studio** while signed in with your Google account.
+4. Paste the key and save.
+
+The key is stored **only in that browser profile** for that portal account. It is not saved in the shared database.
+
+### 17.3 Use the chatbot
+
+- Type a question and press Enter.
+- Use the microphone button for voice typing.
+- Use suggested prompts for common questions.
+- Click **New Chat** to start again.
+- Copy a response with the **Copy** button.
+
+### 17.4 Privacy and limits
+
+- Private student records are not sent to Gemini.
+- Google AI Studio free-tier quotas apply.
+- If the quota is reached, wait or use a paid plan.
+- Disconnect the key at any time from the Chatbot settings.
+
+---
+
+## 18. Settings (Developer Only)
+
+Settings is visible **only to the Developer**. Admin, Teacher and Student cannot open it.
+
+Open **Settings** from the sidebar. The categories are:
+
+### 18.1 Institute Profile
+
+- Institute Name.
+- Tagline / Mission.
+- Centre Address.
+
+The address appears on the login screen.
+
+### 18.2 Contact & Payments
+
+- Helpline Phone.
+- Display Contact.
+- Official Email.
+- UPI Payment ID.
+
+The UPI ID appears in student fee reminders.
+
+### 18.3 Social Media Channels
+
+- Facebook Page URL.
+- Instagram Profile URL.
+- YouTube Channel URL.
+
+### 18.4 Portal Security & Passwords
+
+- Admin Name.
+- Master Admin Password.
+- Admin Email ID.
+
+> The Admin can also change the Master Admin Password from **Access Control → Admin Master Password**. Lead Developer credentials are stored server-side and are never sent to the page.
+
+### 18.5 Database Connections
+
+- **Cloud Mirror Backup** — mirrors saves to the secondary backup ledger.
+- **Primary Cloud Database** — the main cloud database.
+- **Cloud Project URL** and **Cloud Access Key**.
+- **Recreate Fresh Cloud Database** — recreates fresh tables and baseline records.
+
+> Use **Recreate Fresh Cloud Database** with caution. It is intended for initial setup or recovery.
+
+### 18.6 Portal Chatbot
+
+- **Enable Gemini Help Chatbot** — shows Chatbot to Admin, Teacher and Student.
+- Each user connects their own Gemini key from the Chatbot page.
+
+### 18.7 Client Demo Mode
+
+- **Show "Requirement #N" Labels** — ON for development view, OFF for clean client view.
+- **Show Dummy / Demo Data (Seed Records)** — ON creates/restores six demo records per table. OFF permanently deletes demo/testing rows after confirmation.
+
+> Genuine client records and the protected **External Study Links Hub** and **Settings Config** tables are preserved.
+
+### 18.8 Demo Login Button
+
+- **Show Demo Button on Login Page** — ON shows one-tap Admin / Teacher / Student demo buttons. Turn OFF before client handover.
+- This switch saves automatically. Teacher and Student demo buttons use the first active account for that role.
+- Demo login grants password-free role access. Use demo-safe records and turn the switch OFF as soon as the preview is finished.
+
+### 18.9 Admin Permissions
+
+- **Allow Admin to Delete Feedback**.
+- **Allow Admin to Delete Study Links**.
+
+The Developer always keeps full control.
+
+### 18.10 Portal Access by Role
+
+Tick or untick modules for **Admin**, **Teacher** and **Student**. Developer always has access to everything.
+
+Use this to hide a module from a role without changing the code.
+
+### 18.11 Coaching Owner's GDrive Folder
+
+- Owner's Drive Folder Link.
+- Google Drive Email ID.
+- Google Account Password.
+- Drive Link to Open.
+- **Open Drive** button.
+
+New assignments, photos and gallery uploads use this folder. Leave the folder link blank to use the portal's default storage.
+
+### 18.12 Demo Data & Database Setup
+
+- **Clear All Application Data** — a Developer-only action clears app records, including genuine client records and attendance, from the Apps Script Cloud Database, Google Sheets, and Supabase. External Study Links, settings, and sheet headers are preserved.
+
+> This is permanent. It removes link entries from the app but does not delete files or content hosted at external URLs.
+
+### 18.13 Portal Appearance & Theme
+
+- **Toggle theme** — Light / Dark.
+- **Portal accent colour** — slate, Ocean, Emerald or Rose.
+- **Theme button access by role** — choose whether Admin, Teacher and Student can see the theme button. Developer always has access.
+- These controls save automatically.
+
+### 18.14 Save All Settings
+
+The main settings form has a **Save All Settings** button. Saving instantly syncs changes to the cloud database.
+
+Every settings panel now saves its controls automatically; none of the settings modals shows a **Save changes** button. The main **Save All Settings** button at the bottom of the Settings page remains as an optional full save.
+
+---
+
+## 19. Demo Mode
+
+Demo Mode lets you show the portal without entering passwords.
+
+### 19.1 Use Demo Mode
+
+1. Open the login screen.
+2. In the **Demo Mode** card, click:
+   - **Admin**
+   - **Teacher**
+   - **Student**
+3. The portal opens instantly as that role.
+
+Demo Mode is intended for sales demos, training and testing.
+Teacher and Student previews use the first active account for each role; the Admin preview exposes the Admin role.
+
+### 19.2 Turn Demo Mode on or off
+
+Developer: **Settings → Demo Login Button → Show Demo Button on Login Page**.
+
+- ON — demo buttons visible.
+- OFF — demo buttons hidden.
+
+> Turn Demo Mode **OFF before client handover**.
+
+### 19.3 Demo data vs Demo login
+
+These are separate:
+
+- **Demo Login Button** controls the one-tap role buttons.
+- **Show Dummy / Demo Data** controls sample records in the database.
+
+You can turn off the demo buttons while keeping demo data, or vice versa.
+
+---
+
+## 20. Theme and Accent Colour
+
+### 20.1 Default theme by device
+
+| Device | Default theme |
+|---|---|
+| Mobile / Android / narrow screen | **Light** |
+| Laptop / desktop / wide screen | **Dark** |
+
+After the first launch, the portal remembers the choice made on that device mode.
+
+### 20.2 Switch theme
+
+Click the **Moon / Sun** button in the header. The choice is saved on the current browser.
+
+If the button is hidden, the Developer has turned off theme access for your role in **Settings → Portal Appearance & Theme**.
+
+### 20.3 Accent colour
+
+Developer: **Settings → Portal Appearance & Theme → Portal accent colour**.
+
+Options:
+
+- slate
+- Ocean
+- Emerald
+- Rose
+
+The accent colour changes primary buttons and enabled switches. It is saved on the current browser.
+
+### 20.4 If a phone still looks dark
+
+Some mobile browsers force dark mode on every website. If the portal stays dark on a phone:
+
+1. Open the browser settings.
+2. Find **Dark mode** / **Appearance**.
+3. Set it to **System default** or **Off** (not **Always**).
+4. Clear the browser cache for the portal.
+5. Reload the page.
+
+---
+
+## 21. Cloud Sync and Data Safety
+
+### 21.1 How saving works
+
+- Changes are saved on the device immediately.
+- The portal then syncs to the cloud database automatically.
+- The header cloud button forces a manual sync.
+
+### 21.2 Primary database and backup
+
+- **Primary Cloud Database** stores students, batches, attendance, materials, tests, gallery, feedback and notifications.
+- **Cloud Mirror Backup** keeps a secondary copy when enabled.
+- **Google Sheets** can be used as a backup/mirror.
+- The all-data clear removes **External Study Links Hub** records but preserves **Settings_Config** and Supabase `settings_config`.
+
+### 21.3 Offline mode
+
+If the internet drops:
+
+- The portal keeps working with saved data.
+- A message says **Offline Mode: Using saved data on your phone**.
+- When the connection returns, cloud sync resumes.
+
+### 21.4 Cross-device sync
+
+Settings and data changes sync automatically between the laptop browser and Android app while Supabase is enabled and both have an internet connection. Settings are checked every 4 seconds while the app is open; when Android resumes a paused app, it checks immediately. Sync happens without reloading the page.
+
+If a change is not visible, check the internet connection and confirm the cloud database is enabled. The cloud icon can still be clicked for a manual sync.
+
+### 21.5 Data safety rules
+
+- Do not clear browser data unless you have a cloud backup.
+- Use **Clear All Application Data** only when you are ready to remove all institute records, including genuine client data. External Study Links are preserved.
+- Keep the **Settings_Config** tab and Supabase `settings_config` table intact.
+- Export fee data to CSV regularly as an extra backup.
+- Take a Google Sheets backup before major changes.
+
+---
+
+## 22. Dummy / Demo Data
+
+The portal can create six sample records per table for testing.
+
+### 22.1 Demo data availability
+
+The Developer can use **Show Dummy / Demo Data (Seed Records)** to add sample records for testing. A permanent wipe removes the current sample records, but the Developer can explicitly create them again later. Genuine records are preserved.
+
+Use **Create Demo Data** in **Settings → Database Connections** or turn ON **Show Dummy / Demo Data**. The app verifies the records in its Apps Script Cloud Database and Supabase before reporting success; the button remains available after creation. If Supabase rejects or cannot return the rows (for example due to table schema or RLS permissions), the error is shown instead of a success message. Demo data also refreshes matching Google Sheets tabs and the settings list in **Settings_Config** and Supabase `settings_config`. Admin/Developer password settings and the Supabase key are excluded from Supabase settings and snapshots.
+
+### 22.2 Permanently clear application data
+
+Developer: **Settings → Demo Data & Database Setup → Clear All Application Data**.
+
+This clears application records from the Apps Script Cloud Database, Google Sheets, and Supabase while preserving the **External_Links_Hub** sheet and Supabase external-links tables. Confirm with your Developer email and password, then type **CLEAR ALL APPLICATION DATA**.
+
+- Student, teacher, batch, attendance, material, test, gallery, feedback, and notification records are cleared. External Study Links remain available.
+- `Settings_Config`, Supabase `settings_config`, operational settings, and Google Sheets tab headers are preserved so the app remains configured. Only the demo-data wipe flags are updated.
+- The portal disables demo-data creation after the clear. The button remains available to clear records added later.
+- The current device clears its pending sync state. Connected devices receive the updated snapshot; stale pre-clear state is rejected or replaced before it can sync again.
+
+If Apps Script reports that its daily `UrlFetch` quota is exhausted, use `clear_supabase_data.py` from the project folder. Run `python3 clear_supabase_data.py` for a read-only preview, then `python3 clear_supabase_data.py --execute` to proceed. The script prompts for the Supabase project URL and API key; use a key authorized to delete rows. Alternatively, review `clear_supabase_data.sql` carefully, then run it in the Supabase SQL Editor; it commits the deletion. Both options clear Supabase only, preserve external links and operational settings, and do not clear Google Sheets. Never commit or share a privileged API key.
+
+---
+
+## 23. Client Handover Checklist
+
+Before giving the portal to the client:
+
+- [ ] Update **Institute Profile** (name, tagline, address).
+- [ ] Update **Contact & Payments** (phone, email, UPI).
+- [ ] Update **Social Media Channels**.
+- [ ] Set a strong **Master Admin Password**.
+- [ ] Confirm the **Primary Cloud Database** is connected.
+- [ ] Review **Portal Access by Role**.
+- [ ] Turn **OFF Show "Requirement #N" Labels**.
+- [ ] Turn **OFF Show Dummy / Demo Data** and clear demo records.
+- [ ] Turn **OFF Demo Login Button**.
+- [ ] Review **Admin Permissions** for feedback and link deletion.
+- [ ] Check the **Coaching Owner's GDrive Folder**.
+- [ ] Test Admin, Teacher and Student logins.
+- [ ] Test attendance, fee reminder, material upload and marks entry.
+- [ ] Test the theme on laptop and mobile.
+- [ ] Export a fee CSV backup.
+- [ ] Give the client this manual and the portal link.
+
+---
+
+## 24. Troubleshooting
+
+### I cannot log in
+
+- Check the Login ID: roll number, email, phone or Admin ID.
+- Check Caps Lock and the password spelling.
+- Ask the Admin to confirm the account is **Active**, not **Blocked** or **Inactive**.
+- Ask the Admin to reset the password from **Access Control**.
+
+### The Demo buttons are missing
+
+Developer: **Settings → Demo Login Button → Show Demo Button on Login Page** → ON.
+
+### I cannot see a module
+
+- Your role may not have access.
+- Developer: check **Settings → Portal Access by Role**.
+- Admin/Teacher/Student: ask the Developer to enable it.
+
+### I cannot see Settings
+
+Settings is **Developer-only**. Admin does not have Developer permissions. Use **Access Control** for passwords and account access.
+
+### Changes are not showing on another device
+
+1. Click the **cloud icon** to sync.
+2. Refresh the page.
+3. Check the internet connection.
+4. Confirm the cloud database is enabled.
+
+### Fee reminders are not appearing
+
+- The student must have a pending balance.
+- The reminder must be sent from **Student Fees & Reminders**.
+- The student should check the **bell icon** and the Dashboard banner.
+
+### A file will not upload
+
+- Check the Google Drive folder link and sharing permissions.
+- Check the file size and format.
+- Try a smaller file.
+- Confirm the Drive account is connected.
+
+### The chatbot is not working
+
+- Confirm **Settings → Portal Chatbot** is ON.
+- Click **Connect Gemini** and paste a valid Google AI Studio key.
+- Check the Gemini free-tier quota.
+- Try **New Chat**.
+
+### The theme button is missing
+
+Developer: **Settings → Portal Appearance & Theme → Theme button access by role** → enable the role.
+
+### The phone stays dark
+
+- Set the browser's dark mode to **System default** or **Off**.
+- Clear the browser cache for the portal.
+- Reload the page.
+- Try an InPrivate/Incognito tab to test whether the issue is cache-related.
+
+### The page looks outdated
+
+- Refresh the page.
+- Clear the browser cache.
+- Close and reopen the browser.
+- Ask the Developer to confirm the latest version was deployed.
+
+### Data disappeared after clearing demo data
+
+After a permanent demo-data wipe, the records are removed from connected stores. A Developer can create fresh demo/testing records again using **Show Dummy / Demo Data (Seed Records)**; previous non-demo records are not restored by that action.
+
+---
+
+## 25. Glossary
+
+| Term | Meaning |
+|---|---|
+| **Batch** | A group of students taught together. |
+| **DPP** | Daily Practice Problems. |
+| **Offline Test** | A written test conducted in class. |
+| **Fee Ledger** | The table of student fees and payments. |
+| **Access Control** | The Admin page for passwords and account status. |
+| **Demo Mode** | One-tap login as Admin, Teacher or Student without a password. |
+| **Dummy Data** | Sample records used for testing. |
+| **Primary Cloud Database** | The main online database. |
+| **Cloud Mirror Backup** | A secondary copy of database saves. |
+| **External Study Hub** | Links to outside study resources. |
+| **Settings Config** | The protected table that stores portal settings. |
+| **Requirement Labels** | Development tags like "Requirement #5" shown in headers. |
+| **Accent Colour** | The main colour used for buttons and switches. |
+| **PTM Report Card** | Parent-Teacher Meeting report printed from marks. |
+
+---
+
+## Quick Reference Card
+
+| Task | Where to go |
+|---|---|
+| Create a batch | Batches & Students → Create New Batch |
+| Add a student | Batches & Students → Add Student |
+| Mark attendance | Attendance → select date/batch → Save |
+| Record a fee payment | Student Fees & Reminders → student action |
+| Send fee reminders | Student Fees & Reminders → Send Bulk Reminders |
+| Reset a password | Access Control → student/teacher → key icon |
+| Change Admin password | Access Control → Admin Master Password |
+| Upload a DPP | Assignments & DPPs → Upload |
+| Create a test | Offline Marks Tracker → Create Test Record |
+| Print a report card | Offline Marks Tracker → Print Report |
+| Add faculty | Faculty Management → Add Faculty Profile |
+| Add a gallery photo | Results & Gallery → Share Result Banner / Photo |
+| Add a study link | External Study Hub → Add Study Link |
+| Submit feedback | Parent & Student Feedback |
+| Connect Gemini | Chatbot → Connect Gemini |
+| Change theme | Header Moon/Sun button |
+| Change accent colour | Settings → Portal Appearance & Theme |
+| Turn off demo buttons | Settings → Demo Login Button |
+| Clear demo data | Settings → Demo Data & Database Setup |
+| Sync now | Header cloud icon |
+
+---
+
+**End of Manual**
+
+For support, contact the institute office or the portal developer.
+
+</textarea>
+
+<script>
+/* DIVINE_GUIDE_ENGINE */
+(function() {
+    const GUIDE_SECTION_ICONS = {
+        'table of contents': { icon: 'fa-list-ol', gradient: 'from-slate-600 to-slate-700', color: 'text-slate-500' },
+        'overview': { icon: 'fa-compass', gradient: 'from-sky-500 to-blue-600', color: 'text-sky-500' },
+        'welcome': { icon: 'fa-door-open', gradient: 'from-sky-500 to-indigo-600', color: 'text-sky-500' },
+        'roles and permissions': { icon: 'fa-user-shield', gradient: 'from-indigo-500 to-purple-600', color: 'text-indigo-500' },
+        'getting started': { icon: 'fa-rocket', gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500' },
+        'login': { icon: 'fa-right-to-bracket', gradient: 'from-emerald-500 to-teal-600', color: 'text-emerald-500' },
+        'logging in': { icon: 'fa-right-to-bracket', gradient: 'from-emerald-500 to-teal-600', color: 'text-emerald-500' },
+        'dashboard': { icon: 'fa-chart-pie', gradient: 'from-violet-500 to-purple-600', color: 'text-violet-500' },
+        'batches': { icon: 'fa-users-rectangle', gradient: 'from-cyan-500 to-blue-600', color: 'text-cyan-500' },
+        'batch': { icon: 'fa-users-rectangle', gradient: 'from-cyan-500 to-blue-600', color: 'text-cyan-500' },
+        'student': { icon: 'fa-user-graduate', gradient: 'from-sky-500 to-blue-600', color: 'text-sky-500' },
+        'admissions': { icon: 'fa-id-card-clip', gradient: 'from-emerald-500 to-teal-600', color: 'text-emerald-500' },
+        'attendance': { icon: 'fa-calendar-check', gradient: 'from-teal-500 to-emerald-600', color: 'text-teal-500' },
+        'fee': { icon: 'fa-indian-rupee-sign', gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500' },
+        'fees': { icon: 'fa-indian-rupee-sign', gradient: 'from-emerald-500 to-green-600', color: 'text-emerald-500' },
+        'reminders': { icon: 'fa-bell', gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500' },
+        'access control': { icon: 'fa-lock', gradient: 'from-rose-500 to-red-600', color: 'text-rose-500' },
+        'assignments': { icon: 'fa-file-lines', gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500' },
+        'dpp': { icon: 'fa-file-lines', gradient: 'from-blue-500 to-indigo-600', color: 'text-blue-500' },
+        'marks': { icon: 'fa-award', gradient: 'from-amber-500 to-yellow-600', color: 'text-amber-500' },
+        'report card': { icon: 'fa-file-invoice', gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500' },
+        'faculty': { icon: 'fa-chalkboard-user', gradient: 'from-indigo-500 to-violet-600', color: 'text-indigo-500' },
+        'teacher': { icon: 'fa-chalkboard-user', gradient: 'from-indigo-500 to-violet-600', color: 'text-indigo-500' },
+        'results': { icon: 'fa-images', gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500' },
+        'gallery': { icon: 'fa-images', gradient: 'from-pink-500 to-rose-600', color: 'text-pink-500' },
+        'study hub': { icon: 'fa-arrow-up-right-from-square', gradient: 'from-sky-500 to-cyan-600', color: 'text-sky-500' },
+        'feedback': { icon: 'fa-comments', gradient: 'from-purple-500 to-indigo-600', color: 'text-purple-500' },
+        'ai assistant': { icon: 'fa-robot', gradient: 'from-fuchsia-500 to-purple-600', color: 'text-fuchsia-500' },
+        'chatbot': { icon: 'fa-robot', gradient: 'from-fuchsia-500 to-purple-600', color: 'text-fuchsia-500' },
+        'theme': { icon: 'fa-palette', gradient: 'from-pink-500 to-purple-600', color: 'text-pink-500' },
+        'cloud sync': { icon: 'fa-cloud-arrow-up', gradient: 'from-cyan-500 to-teal-600', color: 'text-cyan-500' },
+        'troubleshooting': { icon: 'fa-wrench', gradient: 'from-rose-500 to-amber-600', color: 'text-rose-500' },
+        'quick reference': { icon: 'fa-id-card', gradient: 'from-emerald-500 to-teal-600', color: 'text-emerald-500' },
+        'settings': { icon: 'fa-sliders', gradient: 'from-indigo-600 to-purple-700', color: 'text-indigo-500' },
+        'demo mode': { icon: 'fa-flask', gradient: 'from-amber-500 to-orange-600', color: 'text-amber-500' }
+    };
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .split('&').join('&amp;')
+            .split('<').join('&lt;')
+            .split('>').join('&gt;')
+            .split('"').join('&quot;')
+            .split("'").join('&#39;');
+    }
+
+    function getGuideSectionMeta(title) {
+        const clean = (title || '').replace(/^(\d+\.?\s*)/, '').toLowerCase().trim();
+        for (const [k, meta] of Object.entries(GUIDE_SECTION_ICONS)) {
+            if (clean.includes(k) || k.includes(clean)) return meta;
+        }
+        return { icon: 'fa-book-bookmark', gradient: 'from-sky-500 to-indigo-600', color: 'text-sky-500' };
+    }
+
+    function formatInlineGuide(str) {
+        if (!str) return '';
+        let s = escapeHtml(str);
+        s = s.replace(/\*\*([^\*]+)\*\*/g, '<strong class="font-bold text-slate-900 dark:text-slate-100">$1</strong>');
+        s = s.replace(/\*([^\*]+)\*/g, '<em class="italic text-slate-700 dark:text-slate-300">$1</em>');
+        s = s.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded-md font-mono text-[11px] bg-slate-100 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 font-semibold">$1</code>');
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(m, txt, href) {
+            if (href && href.startsWith('#')) {
+                const anchorId = 'guide-sec-' + href.slice(1).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                return '<a href="javascript:void(0)" onclick="scrollGuideTo(\'' + anchorId + '\')" class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 underline decoration-sky-300 dark:decoration-sky-700 underline-offset-2 transition">' + txt + '</a>';
+            }
+            return '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 underline underline-offset-2">' + txt + ' <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a>';
+        });
+        s = s.replace(/✅/g, '<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300">✅ Allowed</span>');
+        s = s.replace(/❌/g, '<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 dark:bg-rose-950/70 dark:text-rose-300">❌ No</span>');
+        return s;
+    }
+
+    window.parseGuideMarkdownToHtml = function(markdown) {
+        const lines = (markdown || '').split('\n');
+        let out = [];
+        let inTable = false;
+        let tableHeaders = [];
+        let tableRows = [];
+        let inList = false;
+        let inNumList = false;
+        let inCallout = false;
+        let calloutType = 'note';
+        let calloutLines = [];
+        let sectionOpen = false;
+
+        function flushList() {
+            if (inList) { out.push('</ul>'); inList = false; }
+            if (inNumList) { out.push('</ol>'); inNumList = false; }
+        }
+
+        function flushTable() {
+            if (!inTable) return;
+            let t = '<div class="overflow-x-auto my-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">';
+            t += '<table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700 text-xs text-left">';
+            if (tableHeaders.length) {
+                t += '<thead class="bg-slate-100/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 font-bold uppercase tracking-wider text-[10px]"><tr>';
+                tableHeaders.forEach(function(th) {
+                    t += '<th class="px-3.5 py-3 font-bold">' + formatInlineGuide(th) + '</th>';
+                });
+                t += '</tr></thead>';
+            }
+            t += '<tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900/50">';
+            tableRows.forEach(function(row, idx) {
+                t += '<tr class="' + (idx % 2 === 1 ? 'bg-slate-50/60 dark:bg-slate-800/30' : '') + ' hover:bg-sky-50/50 dark:hover:bg-slate-800/60 transition">';
+                row.forEach(function(cell) {
+                    t += '<td class="px-3.5 py-2.5 leading-relaxed text-slate-700 dark:text-slate-300 font-medium">' + formatInlineGuide(cell) + '</td>';
+                });
+                t += '</tr>';
+            });
+            t += '</tbody></table></div>';
+            out.push(t);
+            inTable = false;
+            tableHeaders = [];
+            tableRows = [];
+        }
+
+        function flushCallout() {
+            if (!inCallout) return;
+            const config = {
+                note: { bg: 'bg-sky-50 dark:bg-sky-950/40 border-sky-500 text-sky-900 dark:text-sky-200', icon: 'fa-circle-info text-sky-600 dark:text-sky-400', label: 'NOTE' },
+                warning: { bg: 'bg-amber-50 dark:bg-amber-950/40 border-amber-500 text-amber-900 dark:text-amber-200', icon: 'fa-triangle-exclamation text-amber-600 dark:text-amber-400', label: 'IMPORTANT' },
+                tip: { bg: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-900 dark:text-emerald-200', icon: 'fa-lightbulb text-emerald-600 dark:text-emerald-400', label: 'TIP' }
+            }[calloutType] || { bg: 'bg-slate-50 dark:bg-slate-900/40 border-slate-500 text-slate-900 dark:text-slate-200', icon: 'fa-circle-info text-slate-600', label: 'INFO' };
+
+            out.push('<div class="my-4 p-4 rounded-xl border-l-4 ' + config.bg + ' shadow-2xs text-xs leading-relaxed"><div class="flex items-start gap-3"><i class="fa-solid ' + config.icon + ' text-base mt-0.5 shrink-0"></i><div class="space-y-1"><span class="text-[10px] font-bold tracking-wider uppercase opacity-80 block">' + config.label + '</span><div class="font-medium">' + calloutLines.map(formatInlineGuide).join('<br>') + '</div></div></div></div>');
+            inCallout = false;
+            calloutLines = [];
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) {
+                flushList();
+                flushTable();
+                flushCallout();
+                continue;
+            }
+
+            if (line.startsWith('>')) {
+                flushList();
+                flushTable();
+                const text = line.replace(/^>\s*/, '');
+                if (!inCallout) {
+                    inCallout = true;
+                    calloutType = /warning|danger|caution|important/i.test(text) ? 'warning' : (/tip|success|best practice/i.test(text) ? 'tip' : 'note');
+                    calloutLines = [text];
+                } else {
+                    calloutLines.push(text);
+                }
+                continue;
+            } else {
+                flushCallout();
+            }
+
+            if (line.startsWith('|') && line.endsWith('|')) {
+                flushList();
+                const cells = line.slice(1, -1).split('|').map(function(c) { return c.trim(); });
+                if (cells.every(function(c) { return /^:?-+:?$/.test(c); })) {
+                    continue;
+                }
+                if (!inTable) {
+                    inTable = true;
+                    tableHeaders = cells;
+                    tableRows = [];
+                } else {
+                    tableRows.push(cells);
+                }
+                continue;
+            } else {
+                flushTable();
+            }
+
+            if (/^---$|^___$|^\*\*\*$/.test(line)) {
+                flushList();
+                out.push('<hr class="my-6 border-slate-200 dark:border-slate-700/80">');
+                continue;
+            }
+
+            if (line.startsWith('# ')) {
+                flushList();
+                const title = line.slice(2).trim();
+                let rolePill = 'User Guide';
+                let roleColor = 'from-sky-600 via-indigo-600 to-purple-600';
+                if (/admin/i.test(title)) {
+                    rolePill = '👑 Administrator Guide';
+                    roleColor = 'from-indigo-600 via-purple-600 to-sky-700';
+                } else if (/teacher/i.test(title)) {
+                    rolePill = '👨‍🏫 Teacher & Faculty Guide';
+                    roleColor = 'from-amber-600 via-orange-600 to-indigo-700';
+                } else if (/student/i.test(title)) {
+                    rolePill = '🎓 Student Learning Guide';
+                    roleColor = 'from-sky-600 via-teal-600 to-indigo-700';
+                } else if (/developer/i.test(title)) {
+                    rolePill = '💻 Developer Technical Manual';
+                    roleColor = 'from-purple-700 via-indigo-800 to-slate-900';
+                }
+
+                out.push('<div class="mb-6 p-6 sm:p-8 rounded-2xl bg-gradient-to-r ' + roleColor + ' text-white shadow-xl relative overflow-hidden"><div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none"></div><div class="flex items-center gap-2.5 mb-3 flex-wrap"><span class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-xl font-bold shadow-inner"><i class="fa-solid fa-graduation-cap"></i></span><span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-white/20 tracking-wider uppercase backdrop-blur-xs">' + rolePill + '</span><span class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-emerald-400/30 text-emerald-100 tracking-wider uppercase backdrop-blur-xs">Cloud Edition v2.5</span></div><h1 class="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight leading-tight">' + escapeHtml(title) + '</h1><p class="text-xs sm:text-sm text-sky-100 mt-2 leading-relaxed max-w-2xl">Complete visual step-by-step instructions, academic workflows, and tools for your login role.</p></div>');
+                continue;
+            }
+
+            if (line.startsWith('## ')) {
+                flushList();
+                if (sectionOpen) {
+                    out.push('</div></details>');
+                    sectionOpen = false;
+                }
+                const title = line.slice(3).trim();
+                const meta = getGuideSectionMeta(title);
+                const anchorId = 'guide-sec-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                const numMatch = title.match(/^(\d+)\.\s*(.*)/);
+                const numBadge = numMatch ? '<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-lg text-xs font-black bg-gradient-to-r ' + meta.gradient + ' text-white shadow-xs shrink-0">' + numMatch[1] + '</span>' : '';
+                const displayTitle = numMatch ? numMatch[2] : title;
+
+                out.push('<details id="' + anchorId + '" data-guide-section="' + escapeHtml(title.toLowerCase()) + '" class="guide-card group mb-3 rounded-2xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs overflow-hidden transition-all duration-200 hover:border-indigo-400 dark:hover:border-indigo-500" open>');
+                out.push('<summary class="px-4 py-3 sm:px-5 sm:py-3.5 bg-gradient-to-r from-slate-50 via-slate-50/80 to-indigo-50/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800/90 flex items-center justify-between gap-3 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden hover:bg-slate-100 dark:hover:bg-slate-700/60 transition sticky top-0 z-10 backdrop-blur-md">');
+                out.push('<div class="flex items-center gap-2.5 sm:gap-3 min-w-0">');
+                out.push('<span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr ' + meta.gradient + ' text-white flex items-center justify-center text-sm shadow-sm shrink-0"><i class="fa-solid ' + meta.icon + '"></i></span>');
+                out.push('<div class="flex items-center gap-2 min-w-0"><span class="shrink-0">' + numBadge + '</span><h2 class="text-xs sm:text-sm md:text-base font-black text-slate-900 dark:text-slate-100 font-heading tracking-tight leading-snug truncate">' + formatInlineGuide(displayTitle) + '</h2></div>');
+                out.push('</div>');
+                out.push('<div class="flex items-center gap-2 shrink-0">');
+                out.push('<span class="text-[10px] font-bold text-slate-400 group-open:hidden uppercase tracking-wider hidden sm:inline">Tap to expand</span>');
+                out.push('<span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 group-hover:text-indigo-600 transition"><i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 group-open:rotate-180"></i></span>');
+                out.push('</div>');
+                out.push('</summary>');
+                out.push('<div class="p-4 sm:p-5 space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 leading-relaxed border-t border-slate-100 dark:border-slate-800">');
+                sectionOpen = true;
+                continue;
+            }
+
+            if (line.startsWith('### ')) {
+                flushList();
+                const title = line.slice(4).trim();
+                out.push('<h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-slate-100 mt-6 mb-3 pt-3.5 border-t border-slate-200/80 dark:border-slate-700/80 flex items-center gap-2.5"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-600 shrink-0 shadow-xs ring-2 ring-sky-400/30"></span><span class="font-extrabold tracking-tight">' + formatInlineGuide(title) + '</span></h3>');
+                continue;
+            }
+
+            if (line.startsWith('#### ')) {
+                flushList();
+                const title = line.slice(5).trim();
+                out.push('<h4 class="text-xs sm:text-sm font-bold text-indigo-700 dark:text-indigo-300 mt-4 mb-2 flex items-center gap-2"><i class="fa-solid fa-angle-right text-indigo-500 text-xs font-black"></i><span class="font-bold">' + formatInlineGuide(title) + '</span></h4>');
+                continue;
+            }
+
+            if (/^[-*]\s+/.test(line)) {
+                if (inNumList) flushList();
+                if (!inList) {
+                    out.push('<ul class="space-y-2 my-2.5 pl-1">');
+                    inList = true;
+                }
+                const itemText = line.replace(/^[-*]\s+/, '');
+                out.push('<li class="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300"><i class="fa-solid fa-circle-check text-sky-500 text-[11px] mt-0.5 shrink-0"></i><span class="leading-relaxed">' + formatInlineGuide(itemText) + '</span></li>');
+                continue;
+            }
+
+            const numMatch = line.match(/^(\d+)\.\s+(.*)/);
+            if (numMatch) {
+                if (inList) flushList();
+                if (!inNumList) {
+                    out.push('<ol class="space-y-2.5 my-2.5 pl-1">');
+                    inNumList = true;
+                }
+                out.push('<li class="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300"><span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300 text-[10px] font-bold shrink-0 mt-0.5">' + numMatch[1] + '</span><span class="leading-relaxed">' + formatInlineGuide(numMatch[2]) + '</span></li>');
+                continue;
+            }
+
+            flushList();
+            out.push('<p class="leading-relaxed text-xs text-slate-700 dark:text-slate-300">' + formatInlineGuide(line) + '</p>');
+        }
+
+        flushList();
+        flushTable();
+        flushCallout();
+        if (sectionOpen) {
+            out.push('</div></details>');
+        }
+
+        return out.join('\n');
+    };
+
+    window._guideManualType = 'student';
+    window._parsedGuideCache = {};
+
+    window.getGuideHtml = function(type) {
+        const role = type || window._guideManualType || (typeof state !== 'undefined' && state && (state.currentRole || (state.currentUser && state.currentUser.role))) || 'student';
+        if (window._parsedGuideCache[role]) {
+            return window._parsedGuideCache[role];
+        }
+        let sourceId = 'guide-content-' + role;
+        let source = document.getElementById(sourceId);
+        if (!source) {
+            if (role === 'developer') source = document.getElementById('guide-content-developer');
+            else if (role === 'admin') source = document.getElementById('guide-content-admin') || document.getElementById('guide-content');
+            else if (role === 'teacher') source = document.getElementById('guide-content-teacher');
+            else if (role === 'student') source = document.getElementById('guide-content-student');
+            else source = document.getElementById('guide-content');
+        }
+        const rawMd = source ? (source.value || source.textContent || source.innerText || '') : '';
+        if (!rawMd) {
+            return '<div class="p-8 text-center text-slate-400 text-xs">Guide content is currently unavailable.</div>';
+        }
+        const html = window.parseGuideMarkdownToHtml(rawMd);
+        window._parsedGuideCache[role] = html;
+        return html;
+    };
+
+    const GUIDE_TAGS_BY_ROLE = {
+        student: [
+            { label: '✨ All', query: '' },
+            { label: '📅 Attendance', query: 'attendance' },
+            { label: '📂 DPPs & Notes', query: 'dpps' },
+            { label: '📝 Test Marks', query: 'marks' },
+            { label: '💳 Fee Details', query: 'fee' },
+            { label: '🤖 AI Tutor', query: 'ai' },
+            { label: '⚡ Quick Help', query: 'quick reference' }
+        ],
+        teacher: [
+            { label: '✨ All', query: '' },
+            { label: '📅 Attendance', query: 'attendance' },
+            { label: '👥 Batches', query: 'batches' },
+            { label: '📂 Upload DPP', query: 'uploading' },
+            { label: '📝 Marks Grading', query: 'marks' },
+            { label: '🤖 AI Assistant', query: 'ai' },
+            { label: '⚡ Quick Help', query: 'quick reference' }
+        ],
+        admin: [
+            { label: '✨ All', query: '' },
+            { label: '👥 Batches & Students', query: 'batches' },
+            { label: '📅 Attendance', query: 'attendance' },
+            { label: '💳 Fee Ledger', query: 'fee' },
+            { label: '🔔 Fee Reminders', query: 'reminders' },
+            { label: '🔒 Access Control', query: 'access control' },
+            { label: '📂 DPPs', query: 'assignments' },
+            { label: '📝 Marks', query: 'marks' },
+            { label: '⚡ Operations', query: 'quick reference' }
+        ],
+        developer: [
+            { label: '✨ All', query: '' },
+            { label: '⚙️ Settings', query: 'settings' },
+            { label: '🗄️ Database', query: 'database' },
+            { label: '☁️ Cloud Sync', query: 'sync' },
+            { label: '🔑 Passwords', query: 'password' },
+            { label: '⚡ Quick Reference', query: 'quick reference' }
+        ]
+    };
+
+    function getRoleGuideSubtitle(role) {
+        if (role === 'admin') return 'Complete institute operations, student roster, fee ledger & security';
+        if (role === 'teacher') return 'Classroom management, daily attendance, DPP uploads & exam grading';
+        if (role === 'developer') return 'Technical architecture, Supabase database, cloud sync & code reference';
+        return 'Step-by-step instructions for learning, assignments, attendance & exam progress';
+    }
+
+    function renderTagButtons(role) {
+        const tags = GUIDE_TAGS_BY_ROLE[role] || GUIDE_TAGS_BY_ROLE.student;
+        return tags.map(function(t, idx) {
+            const isFirst = idx === 0;
+            const cls = isFirst ? 'guide-tag-btn px-2.5 py-1 rounded-lg font-semibold bg-sky-600 text-white shadow-2xs whitespace-nowrap cursor-pointer' : 'guide-tag-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap cursor-pointer';
+            return '<button type="button" onclick="filterGuideByTag(\'' + t.query + '\')" class="' + cls + '">' + t.label + '</button>';
+        }).join('');
+    }
+
+    window.openGuideModal = window.showHtmlGuideModal = function(initialType) {
+        const curRole = (typeof state !== 'undefined' && state && (state.currentRole || (state.currentUser && state.currentUser.role))) || 'student';
+        const role = initialType || (curRole === 'developer' ? 'developer' : (curRole === 'admin' ? 'admin' : (curRole === 'teacher' ? 'teacher' : 'student')));
+        window._guideManualType = role;
+
+        // Render role selector / badge based on logged-in role
+        let roleSwitcherHtml = '';
+        if (curRole === 'student') {
+            roleSwitcherHtml = '<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-100 text-sky-800 dark:bg-sky-950/80 dark:text-sky-300 border border-sky-300 dark:border-sky-800 text-xs font-bold shadow-2xs"><i class="fa-solid fa-graduation-cap text-sky-600 dark:text-sky-400"></i><span>Student Guide</span></div>';
+        } else if (curRole === 'teacher') {
+            roleSwitcherHtml = '<div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300 dark:border-amber-800 text-xs font-bold shadow-2xs"><i class="fa-solid fa-chalkboard-user text-amber-600 dark:text-amber-400"></i><span>Teacher Guide</span></div>';
+        } else if (curRole === 'admin') {
+            roleSwitcherHtml = `
+                <div class="inline-flex rounded-xl p-0.5 sm:p-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+                    <button type="button" id="guide-tab-admin" onclick="switchGuideManual('admin')" class="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition text-[11px] sm:text-xs ${role === 'admin' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">
+                        <i class="fa-solid fa-user-tie mr-1"></i><span>Admin</span>
+                    </button>
+                    <button type="button" id="guide-tab-teacher" onclick="switchGuideManual('teacher')" class="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition text-[11px] sm:text-xs ${role === 'teacher' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">
+                        <i class="fa-solid fa-chalkboard-user mr-1"></i><span>Teacher View</span>
+                    </button>
+                    <button type="button" id="guide-tab-student" onclick="switchGuideManual('student')" class="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition text-[11px] sm:text-xs ${role === 'student' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'}">
+                        <i class="fa-solid fa-graduation-cap mr-1"></i><span>Student View</span>
+                    </button>
+                </div>
+            `;
+        } else if (curRole === 'developer') {
+            roleSwitcherHtml = `
+                <div class="inline-flex rounded-xl p-0.5 sm:p-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold flex-wrap">
+                    <button type="button" id="guide-tab-admin" onclick="switchGuideManual('admin')" class="px-2 sm:px-2.5 py-1 rounded-lg transition text-[11px] ${role === 'admin' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400'}">Admin</button>
+                    <button type="button" id="guide-tab-teacher" onclick="switchGuideManual('teacher')" class="px-2 sm:px-2.5 py-1 rounded-lg transition text-[11px] ${role === 'teacher' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400'}">Teacher</button>
+                    <button type="button" id="guide-tab-student" onclick="switchGuideManual('student')" class="px-2 sm:px-2.5 py-1 rounded-lg transition text-[11px] ${role === 'student' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400'}">Student</button>
+                    <button type="button" id="guide-tab-developer" onclick="switchGuideManual('developer')" class="px-2 sm:px-2.5 py-1 rounded-lg transition text-[11px] ${role === 'developer' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold' : 'text-slate-600 dark:text-slate-400'}">Dev</button>
+                </div>
+            `;
+        }
+
+        const html = `
+            <div class="flex flex-col max-h-[85vh]">
+                <div class="flex flex-wrap items-center justify-between pb-3 sm:pb-4 border-b border-slate-100 dark:border-slate-800 gap-2.5 sm:gap-3">
+                    <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                        <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-600 to-purple-600 flex items-center justify-center text-white text-lg shadow-lg shadow-indigo-500/25 shrink-0">
+                            <i class="fa-solid fa-book-open"></i>
+                        </span>
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-xl font-black bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent font-heading leading-tight flex items-center gap-2 truncate">
+                                <span>Portal User Guide</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-400 to-orange-500 text-white shadow-xs">v2.5</span>
+                            </h3>
+                            <p id="guide-role-subtitle" class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">${getRoleGuideSubtitle(role)}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        ${roleSwitcherHtml}
+                        <button type="button" onclick="printGuideManual()" title="Print / Export Guide" class="w-8 h-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-600 dark:text-slate-300 flex items-center justify-center transition cursor-pointer">
+                            <i class="fa-solid fa-print text-xs"></i>
+                        </button>
+                        <button type="button" onclick="closeModal()" title="Close Guide" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 dark:text-slate-400 flex items-center justify-center transition cursor-pointer">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2.5 pb-2 space-y-2 border-b border-slate-100 dark:border-slate-800/80">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="guide-search-input" oninput="filterGuideSearch(this.value)" placeholder="Search any topic (e.g. attendance, tests, login, marks, homework)..." class="w-full pl-9 pr-9 py-2 rounded-xl text-xs bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-sky-500/30 transition">
+                        <button type="button" onclick="clearGuideSearch()" id="guide-clear-search-btn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                    </div>
+                    <div id="guide-tags-container" class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
+                        ${renderTagButtons(role)}
+                    </div>
+                    <div class="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 dark:border-slate-800/60">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider"><i class="fa-solid fa-layer-group text-indigo-500 mr-1"></i>Tap any card to expand / collapse</span>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button type="button" onclick="toggleAllGuideSections(true)" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-angles-down text-[9px] text-indigo-500"></i><span>Expand All</span>
+                            </button>
+                            <button type="button" onclick="toggleAllGuideSections(false)" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-angles-up text-[9px] text-slate-500"></i><span>Collapse All</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="guide-scroll-container" class="mt-3 flex-1 overflow-y-auto pr-1 sm:pr-2 scroll-smooth max-h-[62vh]">
+                    <div id="guide-rendered-body">
+                        ${window.getGuideHtml(role)}
+                    </div>
+                    <div id="guide-empty-search" class="hidden py-16 text-center text-slate-400">
+                        <i class="fa-solid fa-circle-question text-3xl mb-2 text-slate-300 dark:text-slate-600"></i>
+                        <p class="text-sm font-semibold">No matching guide sections found.</p>
+                        <p class="text-xs text-slate-400 mt-1">Try another keyword or tap "All" to view the complete guide.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        if (typeof openModal === 'function') {
+            openModal(html);
+        }
+    };
+
+    window.switchGuideManual = function(role) {
+        window._guideManualType = role;
+        ['admin', 'teacher', 'student', 'developer'].forEach(function(r) {
+            const btn = document.getElementById('guide-tab-' + r);
+            if (btn) {
+                if (r === role) {
+                    btn.className = 'px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition text-[11px] sm:text-xs bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs font-bold';
+                } else {
+                    btn.className = 'px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900';
+                }
+            }
+        });
+
+        const sub = document.getElementById('guide-role-subtitle');
+        if (sub) sub.textContent = getRoleGuideSubtitle(role);
+
+        const tagsContainer = document.getElementById('guide-tags-container');
+        if (tagsContainer) tagsContainer.innerHTML = renderTagButtons(role);
+
+        const body = document.getElementById('guide-rendered-body');
+        if (body) {
+            body.innerHTML = window.getGuideHtml(role);
+        }
+        window.clearGuideSearch();
+    };
+
+    window.filterGuideSearch = function(query) {
+        const clean = (query || '').toLowerCase().trim();
+        const clearBtn = document.getElementById('guide-clear-search-btn');
+        if (clearBtn) clearBtn.classList.toggle('hidden', !clean);
+
+        const cards = document.querySelectorAll('.guide-card');
+        let visibleCount = 0;
+        cards.forEach(function(card) {
+            const text = (card.textContent || '').toLowerCase();
+            const matches = !clean || text.includes(clean);
+            card.classList.toggle('hidden', !matches);
+            if (matches) {
+                visibleCount++;
+                if (clean && typeof card.open !== 'undefined') card.open = true;
+            }
+        });
+
+        const emptyNotice = document.getElementById('guide-empty-search');
+        if (emptyNotice) {
+            emptyNotice.classList.toggle('hidden', visibleCount > 0);
+        }
+    };
+
+    window.clearGuideSearch = function() {
+        const input = document.getElementById('guide-search-input');
+        if (input) {
+            input.value = '';
+            window.filterGuideSearch('');
+        }
+    };
+
+    window.filterGuideByTag = function(tag) {
+        const input = document.getElementById('guide-search-input');
+        if (input) {
+            input.value = tag;
+            window.filterGuideSearch(tag);
+        }
+        const tagBtns = document.querySelectorAll('.guide-tag-btn');
+        tagBtns.forEach(function(btn) {
+            const isActive = (tag === '' && btn.textContent.includes('All')) ||
+                (tag !== '' && btn.textContent.toLowerCase().includes(tag));
+            if (isActive) {
+                btn.className = 'guide-tag-btn px-2.5 py-1 rounded-lg font-semibold bg-sky-600 text-white shadow-2xs whitespace-nowrap cursor-pointer';
+            } else {
+                btn.className = 'guide-tag-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 whitespace-nowrap cursor-pointer';
+            }
+        });
+    };
+
+    window.toggleAllGuideSections = function(openState) {
+        const details = document.querySelectorAll('.guide-card');
+        details.forEach(function(d) {
+            if (typeof d.open !== 'undefined') d.open = openState;
+        });
+    };
+
+    window.scrollGuideTo = function(anchorId) {
+        const target = document.getElementById(anchorId);
+        const container = document.getElementById('guide-scroll-container');
+        if (target && container) {
+            if (typeof target.open !== 'undefined') target.open = true;
+            const targetTop = target.offsetTop - container.offsetTop - 10;
+            container.scrollTo({ top: targetTop, behavior: 'smooth' });
+            target.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2');
+            setTimeout(function() {
+                target.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2');
+            }, 1500);
+        }
+    };
+
+    window.printGuideManual = function() {
+        const content = document.getElementById('guide-rendered-body');
+        if (!content) return;
+        const printWin = window.open('', '_blank');
+        if (!printWin) {
+            window.print();
+            return;
+        }
+        const fontAwesomeUrl = 'https:' + '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
+        const tailwindUrl = 'https:' + '//cdn.tailwindcss.com';
+        printWin.document.write('<!DOCTYPE html><html><head><title>Divine Classes Portal - User Guide</title><link rel="stylesheet" href="' + fontAwesomeUrl + '">' + '<' + 'script src="' + tailwindUrl + '"><' + '/script><style>body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #1e293b; padding: 24px; } @media print { .guide-card { break-inside: avoid; } }</style></head><body>' + content.innerHTML + '<' + 'script>setTimeout(function(){ window.print(); }, 500);<' + '/script></body></html>');
+        printWin.document.close();
+    };
+})();
+</script>
