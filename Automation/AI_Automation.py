@@ -728,6 +728,158 @@ def show_github_repo(project_dir):
     return True
 
 
+def get_github_owner_repo(remote_url):
+    """Extract (owner, repo) from git remote origin URL."""
+    if not remote_url:
+        return None, None
+    url = remote_url.strip()
+    if url.startswith("git@github.com:"):
+        path = url[len("git@github.com:"):]
+    elif url.startswith("ssh://git@github.com/"):
+        path = url[len("ssh://git@github.com/"):]
+    elif "github.com/" in url:
+        path = url.split("github.com/", 1)[1]
+    else:
+        return None, None
+    if path.endswith(".git"):
+        path = path[:-4]
+    parts = [p for p in path.strip("/").split("/") if p]
+    if len(parts) >= 2:
+        return parts[0], parts[1]
+    return None, None
+
+
+def host_on_github_pages(project_dir):
+    """Compile index.html, publish to GitHub Pages, and open live URL."""
+    branch, remote = get_git_info(project_dir)
+    proj_name = os.path.basename(project_dir) if project_dir else "Workspace"
+
+    if not remote:
+        print(f"\n{RED}❌ No 'origin' remote is configured for this project ({proj_name}).{RESET}")
+        print("Add your GitHub repository with: git remote add origin <repository-url>\n")
+        return False
+
+    owner, repo_name = get_github_owner_repo(remote)
+    if not owner or not repo_name:
+        print(f"\n{RED}❌ Could not parse GitHub owner and repository name from: {remote}{RESET}\n")
+        return False
+
+    print(f"\n{CYAN}--------------------------------------------------------{RESET}")
+    print(f"🌐 {BOLD}Host Web App on GitHub Pages{RESET}")
+    print(f"{CYAN}--------------------------------------------------------{RESET}")
+    print(f"  {BOLD}Project:{RESET}     {GREEN}{proj_name}{RESET}")
+    print(f"  {BOLD}Repository:{RESET}  {CYAN}{owner}/{repo_name}{RESET}")
+    print(f"  {BOLD}Branch:{RESET}      {GREEN}{branch}{RESET}")
+
+    # Step 1: Compile index.html
+    print(f"\n{CYAN}Step 1: Compiling standalone index.html...{RESET}")
+    if os.path.isfile(os.path.join(project_dir, "Routes", "Home", "page.html")):
+        compiled = compile_index_html(project_dir)
+        if not compiled:
+            print(f"{YELLOW}⚠️ Could not recompile index.html. Checking existing index.html...{RESET}")
+
+    if not os.path.isfile(os.path.join(project_dir, "index.html")):
+        print(f"{RED}❌ No index.html found in project root. GitHub Pages requires index.html.{RESET}")
+        return False
+
+    # Step 2: Stage, commit, and push index.html if modified
+    print(f"\n{CYAN}Step 2: Syncing build with GitHub remote...{RESET}")
+    run_cmd("git add index.html", cwd=project_dir)
+    diff_check = subprocess.run("git diff-index --quiet HEAD -- index.html", shell=True, cwd=project_dir)
+    if diff_check.returncode != 0:
+        now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        commit_msg = f"build: compile web app for GitHub Pages ({now_str})"
+        print(f"Committing updated index.html: \"{commit_msg}\"")
+        run_cmd(f'git commit -m "{commit_msg}"', cwd=project_dir)
+        print(f"Pushing updates to origin {branch}...")
+        push_res = subprocess.run(f"git push origin {branch}", shell=True, cwd=project_dir)
+        if push_res.returncode != 0:
+            print(f"{YELLOW}⚠️ Warning: git push returned non-zero. Continuing...{RESET}")
+    else:
+        print(f"{GREEN}✓ index.html is already up to date with HEAD.{RESET}")
+        subprocess.run(f"git push origin {branch}", shell=True, cwd=project_dir)
+
+    # Step 3: Check visibility and configure GitHub Pages
+    print(f"\n{CYAN}Step 3: Activating GitHub Pages...{RESET}")
+    gh = shutil.which("gh")
+    owner_repo = f"{owner}/{repo_name}"
+    pages_url = f"https://{owner.lower()}.github.io/{repo_name}/"
+
+    if gh:
+        try:
+            view_res = subprocess.run(
+                [gh, "repo", "view", owner_repo, "--json", "isPrivate"],
+                capture_output=True,
+                text=True,
+                cwd=project_dir
+            )
+            if view_res.returncode == 0:
+                data = json.loads(view_res.stdout.strip())
+                if data.get("isPrivate"):
+                    print(f"\n{YELLOW}Notice: GitHub Pages on standard personal accounts requires the repository to be public.{RESET}")
+                    try:
+                        ans = input(f"Change {owner_repo} to public to enable GitHub Pages? (Y/n): ").strip().lower()
+                    except (EOFError, KeyboardInterrupt):
+                        ans = "y"
+                    if ans in ("", "y", "yes"):
+                        subprocess.run(
+                            [gh, "repo", "edit", owner_repo, "--visibility", "public", "--accept-visibility-change-consequences"],
+                            cwd=project_dir
+                        )
+        except Exception as e:
+            print(f"{DIM}Note: {e}{RESET}")
+
+        enable_res = subprocess.run(
+            [gh, "api", "-X", "POST", f"repos/{owner_repo}/pages", "-F", f"source[branch]={branch}", "-F", "source[path]=/"],
+            capture_output=True,
+            text=True,
+            cwd=project_dir
+        )
+        if enable_res.returncode == 0:
+            print(f"{GREEN}✅ GitHub Pages successfully activated!{RESET}")
+            try:
+                page_data = json.loads(enable_res.stdout.strip())
+                if page_data.get("html_url"):
+                    pages_url = page_data["html_url"]
+            except Exception:
+                pass
+        else:
+            check_res = subprocess.run(
+                [gh, "api", f"repos/{owner_repo}/pages"],
+                capture_output=True,
+                text=True,
+                cwd=project_dir
+            )
+            if check_res.returncode == 0:
+                print(f"{GREEN}✅ GitHub Pages is active!{RESET}")
+                try:
+                    page_data = json.loads(check_res.stdout.strip())
+                    if page_data.get("html_url"):
+                        pages_url = page_data["html_url"]
+                except Exception:
+                    pass
+
+    print(f"\n{CYAN}--------------------------------------------------------{RESET}")
+    print(f"🎉 {BOLD}{GREEN}Live Web App URL:{RESET} {CYAN}{BOLD}{pages_url}{RESET}")
+    print(f"  {DIM}Repository:{RESET} https://github.com/{owner_repo}")
+    print(f"  {DIM}Branch / Path:{RESET} {branch} / (root)")
+    print(f"{CYAN}--------------------------------------------------------{RESET}\n")
+
+    try:
+        choice = input(f"{YELLOW}Open hosted web app in browser? (Y/n): {RESET}").strip().lower()
+        if choice in ("", "y", "yes"):
+            if sys.platform == "darwin":
+                subprocess.run(["open", pages_url])
+            elif sys.platform == "win32":
+                os.system(f'start "" "{pages_url}"')
+            else:
+                subprocess.run(["xdg-open", pages_url])
+    except (EOFError, KeyboardInterrupt):
+        pass
+
+    return True
+
+
 def create_repository(project_dir):
     """Initialize and create a new GitHub repository."""
     default_name = os.path.basename(project_dir) if project_dir else "my-app"
@@ -863,26 +1015,27 @@ def main():
             (4, "Create Repository", "Create and publish a new GitHub repository", "+"),
             (5, "Clone Repository", "Clone a GitHub repository to your Desktop", "⇩"),
             (6, "Delete Repository", "Permanently delete a GitHub repository", "×"),
+            (7, "Host Web App on GitHub", "Compile index.html, publish to GitHub Pages & get live link", "🌐"),
         ]),
         "2": ("VERCEL", [
-            (7, "Compile / Build index.html", "Package modular components into unified index.html for Vercel", "⚡"),
-            (8, "Deploy to Vercel", "Build index.html and push to GitHub edge deployment", "▲"),
-            (9, "Live Site Status", "Verify HTTP response and status from divineclasses.vercel.app", "✓"),
-            (10, "Open Vercel Live Site", "Open divineclasses.vercel.app in web browser", "↗"),
-            (11, "Open Vercel Dashboard", "Open vercel.com/anil-392f management console", "⚙"),
+            (8, "Compile / Build index.html", "Package modular components into unified index.html for Vercel", "⚡"),
+            (9, "Deploy to Vercel", "Build index.html and push to GitHub edge deployment", "▲"),
+            (10, "Live Site Status", "Verify HTTP response and status from divineclasses.vercel.app", "✓"),
+            (11, "Open Vercel Live Site", "Open divineclasses.vercel.app in web browser", "↗"),
+            (12, "Open Vercel Dashboard", "Open vercel.com/anil-392f management console", "⚙"),
         ]),
         "3": ("NETLIFY", [
-            (12, "Deploy Site", "Deploy a project to Netlify", "▲"),
-            (13, "Connect GitHub Repository", "Set up a Netlify site from a GitHub repository", "↗"),
-            (14, "Delete Netlify Site", "Permanently delete a Netlify project", "×"),
+            (13, "Deploy Site", "Deploy a project to Netlify", "▲"),
+            (14, "Connect GitHub Repository", "Set up a Netlify site from a GitHub repository", "↗"),
+            (15, "Delete Netlify Site", "Permanently delete a Netlify project", "×"),
         ]),
         "4": ("GOOGLE APPS SCRIPT", [
-            (15, "Deploy Apps Script", "Push source and update or create deployment", "↥"),
+            (16, "Deploy Apps Script", "Push source and update or create deployment", "↥"),
         ]),
         "5": ("WORKSPACE", [
-            (16, "Project Status", "View recent commits and working-tree changes", "≡"),
-            (17, "Switch Project", "Choose another local Git project", "⇄"),
-            (18, "Exit", "Close the automation center", "×"),
+            (17, "Project Status", "View recent commits and working-tree changes", "≡"),
+            (18, "Switch Project", "Choose another local Git project", "⇄"),
+            (19, "Exit", "Close the automation center", "×"),
         ]),
     }
 
@@ -935,27 +1088,29 @@ def main():
                 target_project = cloned
         elif choice == "6":
             delete_github(target_project)
-        elif choice == "7":
-            compile_index_html(target_project)
+        elif choice in ("7", "pages", "host", "host_pages"):
+            host_on_github_pages(target_project)
         elif choice == "8":
-            deploy_vercel(target_project)
+            compile_index_html(target_project)
         elif choice == "9":
-            check_vercel_status(target_project)
+            deploy_vercel(target_project)
         elif choice == "10":
-            open_vercel_site(target_project)
+            check_vercel_status(target_project)
         elif choice == "11":
-            open_vercel_dashboard(target_project)
+            open_vercel_site(target_project)
         elif choice == "12":
-            deploy_netlify(target_project)
+            open_vercel_dashboard(target_project)
         elif choice == "13":
-            create_netlify_site(target_project)
+            deploy_netlify(target_project)
         elif choice == "14":
-            delete_netlify(target_project)
+            create_netlify_site(target_project)
         elif choice == "15":
-            deploy_apps_script(target_project)
+            delete_netlify(target_project)
         elif choice == "16":
-            view_status(target_project)
+            deploy_apps_script(target_project)
         elif choice == "17":
+            view_status(target_project)
+        elif choice == "18":
             all_projs = list_desktop_projects()
             print(f"\n{BOLD}Available Desktop Projects:{RESET}")
             for i, p in enumerate(all_projs, start=1):
@@ -968,11 +1123,11 @@ def main():
                     print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
             except (EOFError, KeyboardInterrupt):
                 pass
-        elif choice in ("18", "q", "exit"):
+        elif choice in ("19", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 18.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 19.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
