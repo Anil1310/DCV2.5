@@ -382,13 +382,16 @@
     html.dark .text-slate-500 {
         color: #94a3b8 !important;
     }
-    /* All inputs, selects, and textareas across all pages and modals */
-    html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled]),
+    /* All inputs, selects, and textareas across all pages and modals (enforce pure white background in light theme) */
+    html:not(.dark) input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([readonly]):not([disabled]),
     html:not(.dark) select,
     html:not(.dark) textarea,
-    html:not(.dark) #modal-content input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([readonly]):not([disabled]),
+    html:not(.dark) #modal-content input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]),
     html:not(.dark) #modal-content select,
-    html:not(.dark) #modal-content textarea {
+    html:not(.dark) #modal-content textarea,
+    html:not(.dark) #modal-content .bg-white input,
+    html:not(.dark) #modal-content .bg-white select,
+    html:not(.dark) #modal-content .bg-white textarea {
         background-color: #ffffff !important;
         color: #0f172a !important;
         border-color: #cbd5e1 !important;

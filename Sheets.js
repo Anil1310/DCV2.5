@@ -138,7 +138,7 @@ function syncReadableSheets(ss, data, throwOnError, preserveProtectedTabs) {
         stuSheet = ss.insertSheet('Students_Master');
       }
       stuSheet.clear();
-      const headers = ['Roll No', 'Student Name', 'Login Password', 'Access Status', 'Parent Name', 'Contact Phone', 'Total Fee (INR)', 'Paid Fee (INR)', 'Pending Dues (INR)', 'Fee Due Date', 'Last Reminder Sent', 'Admission Date', 'Monthly Fee (INR)'];
+      const headers = ['Roll No', 'Student Name', 'Login Password', 'Access Status', 'Parent Name', 'Contact Phone', 'Total Fee (INR)', 'Paid Fee (INR)', 'Pending Dues (INR)', 'Fee Due Date', 'Last Reminder Sent', 'Admission Date', 'Monthly Fee (INR)', 'Profile Photo URL'];
       const rows = [headers];
       (data.students || []).forEach(function(s) {
         const balance = (s.totalFee || 0) - (s.paidFee || 0);
@@ -155,7 +155,8 @@ function syncReadableSheets(ss, data, throwOnError, preserveProtectedTabs) {
           balance <= 0 ? 'Fully Paid' : (s.dueDate || 'Pending'),
           s.lastReminder || 'Never',
           s.admissionDate || '',
-          s.monthlyFee || 0
+          s.monthlyFee || 0,
+          s.photo || ''
         ]);
       });
       stuSheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
@@ -193,7 +194,7 @@ function syncReadableSheets(ss, data, throwOnError, preserveProtectedTabs) {
         teachSheet = ss.insertSheet('Teachers_Roster');
       }
       teachSheet.clear();
-      const trHeaders = ['Teacher ID', 'Teacher Name', 'Subject', 'Login Email', 'Login Password', 'Access Status', 'Contact Phone', 'Qualification', 'Experience', 'Specialization', 'Biography'];
+      const trHeaders = ['Teacher ID', 'Teacher Name', 'Subject', 'Login Email', 'Login Password', 'Access Status', 'Contact Phone', 'Qualification', 'Experience', 'Specialization', 'Biography', 'Profile Photo URL'];
       const trRows = [trHeaders];
       (data.teachers || []).forEach(function(tr) {
         trRows.push([
@@ -207,7 +208,8 @@ function syncReadableSheets(ss, data, throwOnError, preserveProtectedTabs) {
           tr.qualification || '',
           tr.experience || '',
           tr.specialization || '',
-          tr.bio || ''
+          tr.bio || '',
+          tr.photo || ''
         ]);
       });
       teachSheet.getRange(1, 1, trRows.length, trHeaders.length).setValues(trRows);

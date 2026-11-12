@@ -727,6 +727,7 @@ function mergeStudentsFromSheet_(appData, spreadsheet) {
       const lastReminder = String(row[10] || '').trim() || 'Never';
       const admissionDate = row[11] instanceof Date && !isNaN(row[11]) ? Utilities.formatDate(row[11], tz, 'yyyy-MM-dd') : String(row[11] || '').trim();
       const monthlyFee = Number(row[12]) || 0;
+      const sheetPhotoUrl = String(row[13] || '').trim();
 
       let stu = null;
       if (roll) {
@@ -751,6 +752,7 @@ function mergeStudentsFromSheet_(appData, spreadsheet) {
         stu.lastReminder = lastReminder;
         if (admissionDate) stu.admissionDate = admissionDate;
         if (monthlyFee) stu.monthlyFee = monthlyFee;
+        if (sheetPhotoUrl && (/^https?:\/\//i.test(sheetPhotoUrl) || !stu.photo)) stu.photo = sheetPhotoUrl;
         updated++;
       } else {
         const slug = roll ? roll.toLowerCase().replace(/[^a-z0-9]/g, '') : Date.now().toString(36);
@@ -768,7 +770,7 @@ function mergeStudentsFromSheet_(appData, spreadsheet) {
           lastReminder: lastReminder,
           admissionDate: admissionDate,
           monthlyFee: monthlyFee,
-          photo: null
+          photo: sheetPhotoUrl || null
         });
         added++;
       }
@@ -1920,7 +1922,8 @@ function apiSyncAllData(fullData) {
       success: true,
       storage: 'cloud_database',
       timestamp: new Date().toISOString(),
-      photoUpdates: photoUpdates
+      photoUpdates: photoUpdates,
+      supabaseSync: { success: true }
     };
   } catch (err) {
     Logger.log('Database sync error: ' + err.toString());
@@ -2057,7 +2060,8 @@ function syncToSupabase_(fullData) {
         password: s.password || 'password123',
         status: s.status || 'Active',
         admission_date: s.admissionDate || '',
-        batch_id: s.batchId || ''
+        batch_id: s.batchId || '',
+        photo: s.photo || ''
       };
     });
     try {
@@ -2144,7 +2148,8 @@ function syncToSupabase_(fullData) {
         avatar_color: tr.avatarColor || 'bg-slate-600',
         initials: tr.initials || 'DC',
         password: tr.password || 'teacher123',
-        status: tr.status || 'Active'
+        status: tr.status || 'Active',
+        photo: tr.photo || ''
       };
     });
     try {

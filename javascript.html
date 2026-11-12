@@ -2393,17 +2393,17 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Student Full Name *</label>
-                                <input type="text" id="new-stu-name" required placeholder="e.g., Ayush Deshmukh" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                                <input type="text" id="new-stu-name" required placeholder="e.g., Ayush Deshmukh" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Parent / Guardian Name *</label>
-                                <input type="text" id="new-stu-parent" required placeholder="e.g., Ramesh Deshmukh" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                                <input type="text" id="new-stu-parent" required placeholder="e.g., Ramesh Deshmukh" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Contact Phone *</label>
-                                <input type="text" id="new-stu-phone" required placeholder="+91 98765 11223" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                                <input type="text" id="new-stu-phone" required placeholder="+91 98765 11223" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Total Fees Paid (₹)</label>
@@ -2413,11 +2413,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Monthly Fee (₹) *</label>
-                                <input type="number" id="new-stu-monthly-fee" required min="1" value="1000" placeholder="e.g. 1000" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                                <input type="number" id="new-stu-monthly-fee" required min="1" value="1000" placeholder="e.g. 1000" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-slate-600 mb-1">Admission Date *</label>
-                                <input type="date" id="new-stu-admission-date" required value="${localTodayIso()}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                                <input type="date" id="new-stu-admission-date" required value="${localTodayIso()}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                             </div>
                         </div>
                         <p class="text-[10px] text-slate-500">The next monthly fee is due on the same date next month. If that date does not exist, the month’s last day is used. A portal reminder appears one day after the due date.</p>
@@ -2543,15 +2543,26 @@
                 if (typeof google !== 'undefined' && google.script && google.script.run) {
                     await new Promise(function (resolve, reject) {
                         google.script.run
-                            .withSuccessHandler(resolve)
+                            .withSuccessHandler(function (result) {
+                                if (result && Array.isArray(result.photoUpdates)) {
+                                    result.photoUpdates.forEach(function (up) {
+                                        if (up.type === 'student' && up.id === newStu.id) {
+                                            newStu.photo = up.photo;
+                                            newStu.photoFileId = up.photoFileId || '';
+                                        }
+                                    });
+                                    saveStateLocally(true);
+                                    if (typeof syncPendingDataToSupabase === 'function') {
+                                        syncPendingDataToSupabase();
+                                    }
+                                }
+                                resolve(result);
+                            })
                             .withFailureHandler(reject)
                             .apiSyncAllData(state);
                     }).then(function (result) {
                         if (!result || result.success !== true) {
                             throw new Error((result && result.error) || 'The cloud database did not confirm the save.');
-                        }
-                        if (!result.supabaseSync || result.supabaseSync.success !== true) {
-                            throw new Error((result && result.supabaseSync && result.supabaseSync.error) || 'Supabase did not confirm the student record.');
                         }
                     });
                 } else if (typeof syncPendingDataToSupabase === 'function') {
@@ -2982,12 +2993,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Student Full Name *</label>
-                            <input type="text" id="edit-stu-name" value="${escapeAttr(stu.name || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                            <input type="text" id="edit-stu-name" value="${escapeAttr(stu.name || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Roll Number *</label>
                             ${isAdmin ? `
-                            <input type="text" id="edit-stu-roll" value="${escapeAttr(stu.roll || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono font-medium">
+                            <input type="text" id="edit-stu-roll" value="${escapeAttr(stu.roll || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono font-medium bg-white text-slate-900">
                             ` : `
                             <div class="px-3 py-2 text-xs border border-slate-200 rounded-xl bg-slate-100 font-mono font-bold text-slate-700">${escapeHtml(stu.roll || '')}</div>
                             <input type="hidden" id="edit-stu-roll" value="${escapeAttr(stu.roll || '')}">
@@ -2998,11 +3009,11 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Contact Phone / Mobile *</label>
-                            <input type="text" id="edit-stu-phone" value="${escapeAttr(stu.phone || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono">
+                            <input type="text" id="edit-stu-phone" value="${escapeAttr(stu.phone || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Parent / Guardian Name *</label>
-                            <input type="text" id="edit-stu-parent" value="${escapeAttr(stu.parentName || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                            <input type="text" id="edit-stu-parent" value="${escapeAttr(stu.parentName || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                         </div>
                     </div>
 
@@ -3010,14 +3021,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Batch Assignment</label>
-                            <select id="edit-stu-batch" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white focus:outline-none focus:border-indigo-500 font-medium">
+                            <select id="edit-stu-batch" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900 focus:outline-none focus:border-indigo-500 font-medium">
                                 <option value="" ${!curBatchId ? 'selected' : ''}>-- No Batch Assigned --</option>
                                 ${state.batches.map(b => `<option value="${b.id}" ${b.id === curBatchId ? 'selected' : ''}>${escapeHtml(b.name)}</option>`).join('')}
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Access Status *</label>
-                            <select id="edit-stu-status" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white focus:outline-none focus:border-indigo-500 font-semibold">
+                            <select id="edit-stu-status" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold">
                                 <option value="Active" ${stu.status === 'Active' ? 'selected' : ''}>Active (Authorized Access)</option>
                                 <option value="Blocked" ${stu.status === 'Blocked' ? 'selected' : ''}>Blocked (Revoke Login)</option>
                                 <option value="Inactive" ${stu.status === 'Inactive' ? 'selected' : ''}>Inactive (Removed from App)</option>
@@ -3032,15 +3043,15 @@
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Monthly Fee (₹) *</label>
-                            <input type="number" min="0" id="edit-stu-monthly-fee" value="${Number(stu.monthlyFee) || 0}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-semibold">
+                            <input type="number" min="0" id="edit-stu-monthly-fee" value="${Number(stu.monthlyFee) || 0}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-semibold bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Fee Due Date *</label>
-                            <input type="date" id="edit-stu-duedate" value="${/^\d{4}-\d{2}-\d{2}$/.test(String(stu.dueDate || '')) ? escapeAttr(stu.dueDate) : ''}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+                            <input type="date" id="edit-stu-duedate" value="${/^\d{4}-\d{2}-\d{2}$/.test(String(stu.dueDate || '')) ? escapeAttr(stu.dueDate) : ''}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Admission Date</label>
-                            <input type="date" id="edit-stu-admission-date" value="${escapeAttr(stu.admissionDate || '')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+                            <input type="date" id="edit-stu-admission-date" value="${escapeAttr(stu.admissionDate || '')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-white text-slate-900">
                         </div>
                     </div>
                     ` : `
@@ -3053,7 +3064,7 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Student Portal Password *</label>
-                        <input type="text" id="edit-stu-pwd" value="${escapeAttr(stu.password || 'password123')}" required minlength="4" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono">
+                        <input type="text" id="edit-stu-pwd" value="${escapeAttr(stu.password || 'password123')}" required minlength="4" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono bg-white text-slate-900">
                     </div>
 
                     <div class="pt-3 flex items-center justify-between border-t border-slate-100">
@@ -3208,38 +3219,38 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Faculty Full Name *</label>
-                            <input type="text" id="edit-tch-name" value="${escapeAttr(tch.name || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                            <input type="text" id="edit-tch-name" value="${escapeAttr(tch.name || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Login Email (Username) *</label>
-                            <input type="email" id="edit-tch-email" value="${escapeAttr(tch.email || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono">
+                            <input type="email" id="edit-tch-email" value="${escapeAttr(tch.email || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono bg-white text-slate-900">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Primary Subject *</label>
-                            <input type="text" id="edit-tch-subject" value="${escapeAttr(tch.subject || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                            <input type="text" id="edit-tch-subject" value="${escapeAttr(tch.subject || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Academic Qualifications *</label>
-                            <input type="text" id="edit-tch-qual" value="${escapeAttr(tch.qualification || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                            <input type="text" id="edit-tch-qual" value="${escapeAttr(tch.qualification || '')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Teaching Experience *</label>
-                            <input type="text" id="edit-tch-exp" value="${escapeAttr(tch.experience || '10+ Years')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">
+                            <input type="text" id="edit-tch-exp" value="${escapeAttr(tch.experience || '10+ Years')}" required class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Contact Phone</label>
-                            <input type="text" id="edit-tch-phone" value="${escapeAttr(tch.phone || '+91 95556 78753')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono">
+                            <input type="text" id="edit-tch-phone" value="${escapeAttr(tch.phone || '+91 95556 78753')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-mono bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Access Status</label>
                             ${isAdmin ? `
-                            <select id="edit-tch-status" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white focus:outline-none focus:border-indigo-500 font-semibold">
+                            <select id="edit-tch-status" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900 focus:outline-none focus:border-indigo-500 font-semibold">
                                 <option value="Active" ${tch.status === 'Active' ? 'selected' : ''}>Active (Authorized Access)</option>
                                 <option value="Blocked" ${tch.status === 'Blocked' ? 'selected' : ''}>Blocked (Revoke Login)</option>
                                 <option value="Inactive" ${tch.status === 'Inactive' ? 'selected' : ''}>Inactive (Retired / Hidden)</option>
@@ -3261,19 +3272,19 @@
                             </div>
                             <div class="min-w-0 flex-1">
                                 <input type="file" id="edit-tch-photo" accept="image/jpeg,image/png,image/webp" onchange="handleEditTeacherPhotoPick(event)" class="block w-full text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white">
-                                <p class="mt-1 text-[10px] text-slate-500">Choose a clear image. It will be resized before saving.</p>
+                                <p class="mt-1 text-[10px] text-slate-500">Choose a clear image. It will be resized and stored in Google Drive (Teacher Profiles folder).</p>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Specialization Focus</label>
-                        <input type="text" id="edit-tch-spec" value="${escapeAttr(tch.specialization || '')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium">
+                        <input type="text" id="edit-tch-spec" value="${escapeAttr(tch.specialization || '')}" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 font-medium bg-white text-slate-900">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Faculty Biography</label>
-                        <textarea id="edit-tch-bio" rows="3" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500">${escapeHtml(tch.bio || '')}</textarea>
+                        <textarea id="edit-tch-bio" rows="3" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-white text-slate-900">${escapeHtml(tch.bio || '')}</textarea>
                     </div>
 
                     <div>
@@ -6104,40 +6115,75 @@ _Tamper-evident record synced with Divine Classes cloud database._`;
             showToast(`Doubt slot confirmed with ${teacherName}! Check your Divine Classes timetable.`, 'success');
         }
 
+        window.newTeacherPhotoData = '';
+        window.newTeacherPhotoProcessing = false;
+
+        async function handleNewTeacherPhotoPick(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            window.newTeacherPhotoProcessing = true;
+            try {
+                const dataUrl = await processImageUpload(file);
+                window.newTeacherPhotoData = dataUrl;
+                const preview = document.getElementById('new-tch-photo-preview');
+                if (preview) preview.innerHTML = `<img src="${dataUrl}" alt="Faculty photo preview" class="h-full w-full object-cover">`;
+                showToast('Faculty photo selected.', 'info');
+            } catch (error) {
+                showToast('Could not process faculty photo: ' + error, 'error');
+                event.target.value = '';
+            } finally {
+                window.newTeacherPhotoProcessing = false;
+            }
+        }
+
         function openAddTeacherModal() {
+            window.newTeacherPhotoData = '';
+            window.newTeacherPhotoProcessing = false;
             const modal = `
                 <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                     <h3 class="text-base font-bold text-slate-900 font-heading">Add New Faculty Profile</h3>
                     <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <form onsubmit="handleAddTeacher(event)" class="space-y-3 mt-4">
+                    <div class="rounded-xl border border-indigo-100 bg-indigo-50/60 p-3">
+                        <label class="mb-2 block text-xs font-semibold text-slate-700">Faculty Profile Photo</label>
+                        <div class="flex items-center gap-3">
+                            <div id="new-tch-photo-preview" class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white text-lg font-bold text-indigo-700 shadow-sm border border-slate-200">
+                                <i class="fa-solid fa-user text-2xl text-slate-400"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <input type="file" id="new-tch-photo" accept="image/jpeg,image/png,image/webp" onchange="handleNewTeacherPhotoPick(event)" class="block w-full text-xs text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white cursor-pointer">
+                                <p class="mt-1 text-[10px] text-slate-500">Upload profile photo. It will be stored in Google Drive (Teacher Profiles folder).</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Teacher Name *</label>
-                            <input type="text" id="tr-name" required placeholder="Er. Naveen Bansal" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                            <input type="text" id="tr-name" required placeholder="Er. Naveen Bansal" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Subject / Role *</label>
-                            <input type="text" id="tr-subject" required placeholder="Organic Chemistry Specialist" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                            <input type="text" id="tr-subject" required placeholder="Organic Chemistry Specialist" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Qualification *</label>
-                            <input type="text" id="tr-qual" required placeholder="B.Tech (IIT Delhi)" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                            <input type="text" id="tr-qual" required placeholder="B.Tech (IIT Delhi)" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Experience *</label>
-                            <input type="text" id="tr-exp" required placeholder="9+ Years Experience" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                            <input type="text" id="tr-exp" required placeholder="9+ Years Experience" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Specialization *</label>
-                        <input type="text" id="tr-spec" required placeholder="Reaction Mechanisms & Stereochemistry" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl">
+                        <input type="text" id="tr-spec" required placeholder="Reaction Mechanisms & Stereochemistry" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Short Bio for Students *</label>
-                        <textarea id="tr-bio" rows="2" required placeholder="Celebrated mentor who makes reaction mechanisms effortless." class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl"></textarea>
+                        <textarea id="tr-bio" rows="2" required placeholder="Celebrated mentor who makes reaction mechanisms effortless." class="w-full px-3 py-2 text-xs border border-slate-200 rounded-xl bg-white text-slate-900"></textarea>
                     </div>
                     <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
                         <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
@@ -6150,9 +6196,15 @@ _Tamper-evident record synced with Divine Classes cloud database._`;
 
         function handleAddTeacher(e) {
             e.preventDefault();
+            if (window.newTeacherPhotoProcessing) {
+                showToast('Please wait for the photo to finish processing.', 'warning');
+                return;
+            }
             const name = document.getElementById('tr-name').value.trim();
             const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-            state.teachers.push({
+            const photo = window.newTeacherPhotoData || '';
+            window.newTeacherPhotoData = '';
+            const newTch = {
                 id: getNextSequenceId(state.teachers, 'T'),
                 name,
                 subject: document.getElementById('tr-subject').value.trim(),
@@ -6162,12 +6214,35 @@ _Tamper-evident record synced with Divine Classes cloud database._`;
                 bio: document.getElementById('tr-bio').value.trim(),
                 email: 'faculty@divineclasses.in',
                 avatarColor: 'from-rose-500 to-orange-500',
-                initials
-            });
+                initials,
+                password: 'teacher123',
+                status: 'Active',
+                photo: photo
+            };
+            state.teachers.push(newTch);
             saveStateLocally();
             closeModal();
             renderMainContent();
             showToast(`Faculty profile for ${name} published for students!`, 'success');
+
+            if (typeof google !== 'undefined' && google.script && google.script.run) {
+                google.script.run
+                    .withSuccessHandler(function (result) {
+                        if (result && Array.isArray(result.photoUpdates)) {
+                            result.photoUpdates.forEach(function (up) {
+                                if (up.type === 'teacher' && up.id === newTch.id) {
+                                    newTch.photo = up.photo;
+                                    newTch.photoFileId = up.photoFileId || '';
+                                }
+                            });
+                            saveStateLocally(true);
+                            if (typeof syncPendingDataToSupabase === 'function') syncPendingDataToSupabase();
+                        }
+                    })
+                    .apiSyncAllData(state);
+            } else if (typeof syncPendingDataToSupabase === 'function') {
+                syncPendingDataToSupabase();
+            }
         }
 
         /********************************************************************
