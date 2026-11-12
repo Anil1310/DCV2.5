@@ -630,6 +630,104 @@ def quick_pull(project_dir):
     return True
 
 
+def get_github_web_url(remote_url):
+    """Convert git remote origin URL (ssh or https) into a standard GitHub web URL."""
+    if not remote_url:
+        return None
+    url = remote_url.strip()
+    if url.startswith("git@github.com:"):
+        url = "https://github.com/" + url[len("git@github.com:"):]
+    elif url.startswith("ssh://git@github.com/"):
+        url = "https://github.com/" + url[len("ssh://git@github.com/"):]
+    if url.endswith(".git"):
+        url = url[:-4]
+    return url
+
+
+def show_github_repo(project_dir):
+    """Display repository details and open it on GitHub in the default web browser."""
+    branch, remote = get_git_info(project_dir)
+    proj_name = os.path.basename(project_dir) if project_dir else "Workspace"
+
+    if not remote:
+        print(f"\n{RED}❌ No 'origin' remote is configured for this project ({proj_name}).{RESET}")
+        print("Add your GitHub repository with: git remote add origin <repository-url>\n")
+        return False
+
+    repo_url = get_github_web_url(remote)
+
+    print(f"\n{CYAN}--------------------------------------------------------{RESET}")
+    print(f"🐙 {BOLD}GitHub Repository Information{RESET}")
+    print(f"{CYAN}--------------------------------------------------------{RESET}")
+    print(f"  {BOLD}Project Name:{RESET}    {GREEN}{proj_name}{RESET}")
+    print(f"  {BOLD}Local Directory:{RESET} {project_dir}")
+    print(f"  {BOLD}Git Remote:{RESET}      {remote}")
+    print(f"  {BOLD}GitHub URL:{RESET}      {CYAN}{repo_url}{RESET}")
+    print(f"  {BOLD}Active Branch:{RESET}   {GREEN}{branch}{RESET}")
+
+    # Latest commit details
+    try:
+        commit_res = subprocess.run(
+            ["git", "log", "-1", "--format=%h | %s (%cr by %an)"],
+            capture_output=True,
+            text=True,
+            cwd=project_dir
+        )
+        if commit_res.returncode == 0 and commit_res.stdout.strip():
+            print(f"  {BOLD}Latest Commit:{RESET} {commit_res.stdout.strip()}")
+    except Exception:
+        pass
+
+    # Status / sync info
+    try:
+        status_res = subprocess.run(
+            ["git", "status", "-sb"],
+            capture_output=True,
+            text=True,
+            cwd=project_dir
+        )
+        if status_res.returncode == 0 and status_res.stdout.strip():
+            branch_stat = status_res.stdout.strip().splitlines()[0]
+            print(f"  {BOLD}Sync Status:{RESET}   {branch_stat}")
+    except Exception:
+        pass
+
+    # If GitHub CLI ('gh') is available, show visibility and stars
+    gh = shutil.which("gh")
+    if gh:
+        try:
+            gh_res = subprocess.run(
+                [gh, "repo", "view", "--json", "visibility,isPrivate,description,stargazerCount", "--jq", '"Visibility: " + .visibility + " · Stars: " + (.stargazerCount|tostring)'],
+                capture_output=True,
+                text=True,
+                cwd=project_dir
+            )
+            if gh_res.returncode == 0 and gh_res.stdout.strip():
+                print(f"  {BOLD}GitHub Details:{RESET} {gh_res.stdout.strip()}")
+        except Exception:
+            pass
+
+    print(f"{CYAN}--------------------------------------------------------{RESET}")
+    print(f"Opening {repo_url} in your browser...")
+
+    try:
+        if sys.platform == "darwin":
+            subprocess.run(["open", repo_url])
+        elif sys.platform == "win32":
+            os.system(f'start "" "{repo_url}"')
+        else:
+            subprocess.run(["xdg-open", repo_url])
+    except Exception:
+        try:
+            import webbrowser
+            webbrowser.open(repo_url)
+        except Exception as e:
+            print(f"{RED}Could not open browser: {e}{RESET}")
+
+    print(f"{GREEN}✅ Repository displayed successfully.{RESET}\n")
+    return True
+
+
 def create_repository(project_dir):
     """Initialize and create a new GitHub repository."""
     default_name = os.path.basename(project_dir) if project_dir else "my-app"
@@ -761,29 +859,30 @@ def main():
         "1": ("GITHUB", [
             (1, "Quick Push", "Stage, commit, push changes, and auto-deploy to Vercel/Netlify", "↑"),
             (2, "Quick Pull", "Fetch and merge the latest remote changes", "↓"),
-            (3, "Create Repository", "Create and publish a new GitHub repository", "+"),
-            (4, "Clone Repository", "Clone a GitHub repository to your Desktop", "⇩"),
-            (5, "Delete Repository", "Permanently delete a GitHub repository", "×"),
+            (3, "Show Repository", "View repository details & open on GitHub in browser", "↗"),
+            (4, "Create Repository", "Create and publish a new GitHub repository", "+"),
+            (5, "Clone Repository", "Clone a GitHub repository to your Desktop", "⇩"),
+            (6, "Delete Repository", "Permanently delete a GitHub repository", "×"),
         ]),
         "2": ("VERCEL", [
-            (6, "Compile / Build index.html", "Package modular components into unified index.html for Vercel", "⚡"),
-            (7, "Deploy to Vercel", "Build index.html and push to GitHub edge deployment", "▲"),
-            (8, "Live Site Status", "Verify HTTP response and status from divineclasses.vercel.app", "✓"),
-            (9, "Open Vercel Live Site", "Open divineclasses.vercel.app in web browser", "↗"),
-            (10, "Open Vercel Dashboard", "Open vercel.com/anil-392f management console", "⚙"),
+            (7, "Compile / Build index.html", "Package modular components into unified index.html for Vercel", "⚡"),
+            (8, "Deploy to Vercel", "Build index.html and push to GitHub edge deployment", "▲"),
+            (9, "Live Site Status", "Verify HTTP response and status from divineclasses.vercel.app", "✓"),
+            (10, "Open Vercel Live Site", "Open divineclasses.vercel.app in web browser", "↗"),
+            (11, "Open Vercel Dashboard", "Open vercel.com/anil-392f management console", "⚙"),
         ]),
         "3": ("NETLIFY", [
-            (11, "Deploy Site", "Deploy a project to Netlify", "▲"),
-            (12, "Connect GitHub Repository", "Set up a Netlify site from a GitHub repository", "↗"),
-            (13, "Delete Netlify Site", "Permanently delete a Netlify project", "×"),
+            (12, "Deploy Site", "Deploy a project to Netlify", "▲"),
+            (13, "Connect GitHub Repository", "Set up a Netlify site from a GitHub repository", "↗"),
+            (14, "Delete Netlify Site", "Permanently delete a Netlify project", "×"),
         ]),
         "4": ("GOOGLE APPS SCRIPT", [
-            (14, "Deploy Apps Script", "Push source and update or create deployment", "↥"),
+            (15, "Deploy Apps Script", "Push source and update or create deployment", "↥"),
         ]),
         "5": ("WORKSPACE", [
-            (15, "Project Status", "View recent commits and working-tree changes", "≡"),
-            (16, "Switch Project", "Choose another local Git project", "⇄"),
-            (17, "Exit", "Close the automation center", "×"),
+            (16, "Project Status", "View recent commits and working-tree changes", "≡"),
+            (17, "Switch Project", "Choose another local Git project", "⇄"),
+            (18, "Exit", "Close the automation center", "×"),
         ]),
     }
 
@@ -824,37 +923,39 @@ def main():
             quick_push(target_project)
         elif choice == "2":
             quick_pull(target_project)
-        elif choice == "3":
+        elif choice in ("3", "show_repo", "show"):
+            show_github_repo(target_project)
+        elif choice == "4":
             new_proj = create_repository(target_project)
             if new_proj:
                 target_project = new_proj
-        elif choice == "4":
+        elif choice == "5":
             cloned = clone_repository()
             if cloned:
                 target_project = cloned
-        elif choice == "5":
-            delete_github(target_project)
         elif choice == "6":
-            compile_index_html(target_project)
+            delete_github(target_project)
         elif choice == "7":
-            deploy_vercel(target_project)
+            compile_index_html(target_project)
         elif choice == "8":
-            check_vercel_status(target_project)
+            deploy_vercel(target_project)
         elif choice == "9":
-            open_vercel_site(target_project)
+            check_vercel_status(target_project)
         elif choice == "10":
-            open_vercel_dashboard(target_project)
+            open_vercel_site(target_project)
         elif choice == "11":
-            deploy_netlify(target_project)
+            open_vercel_dashboard(target_project)
         elif choice == "12":
-            create_netlify_site(target_project)
+            deploy_netlify(target_project)
         elif choice == "13":
-            delete_netlify(target_project)
+            create_netlify_site(target_project)
         elif choice == "14":
-            deploy_apps_script(target_project)
+            delete_netlify(target_project)
         elif choice == "15":
-            view_status(target_project)
+            deploy_apps_script(target_project)
         elif choice == "16":
+            view_status(target_project)
+        elif choice == "17":
             all_projs = list_desktop_projects()
             print(f"\n{BOLD}Available Desktop Projects:{RESET}")
             for i, p in enumerate(all_projs, start=1):
@@ -867,11 +968,11 @@ def main():
                     print(f"{GREEN}Switched to: {os.path.basename(target_project)}{RESET}")
             except (EOFError, KeyboardInterrupt):
                 pass
-        elif choice in ("17", "q", "exit"):
+        elif choice in ("18", "q", "exit"):
             print(f"\n{GREEN}Goodbye! 👋{RESET}\n")
             break
         else:
-            print(f"{RED}Invalid selection. Please choose 1 to 17.{RESET}")
+            print(f"{RED}Invalid selection. Please choose 1 to 18.{RESET}")
 
         try:
             input(f"\n{DIM}Press [ENTER] to return to menu...{RESET}")
